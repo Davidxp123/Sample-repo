@@ -1,1 +1,4 @@
-this is the dummy 2 file which is kind of copy of the dummy 1 file but this one is also doing the same thing essentially 
+new file modifications has be made 
+this is dummy b file 
+newly changed by the owner 
+
