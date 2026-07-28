@@ -1,5 +1,5 @@
 # 🚀 Git & GitHub Learning Guide
-
+# Hello everybody
 Welcome! This repository is designed for beginners who want to learn **Git** and **GitHub** from scratch. By following this guide, you'll understand the basics of version control, work with repositories, and collaborate on projects using GitHub.
 
 ---
