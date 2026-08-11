@@ -1,454 +1,99 @@
-
-<!-- Final main branch activated -->
- <!-- additional change  -->
-<!-- <!DOCTYPE html> -->
-<html lang="en">d
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LPI Enterprise Command Center | Microsoft Dataverse Solution</title>
+    <title>AuraConsult | Next-Gen Consulting SaaS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Animated Background Orbs -->
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+    <div class="bg-shape shape-3"></div>
 
-    <!-- App Container -->
-    <div class="app-shell">
-        
-        <!-- Sidebar Navigation -->
-        <aside class="sidebar">
-            <div class="brand-box">
-                <div class="brand-icon"><i class="fa-solid fa-cube"></i></div>
-                <div class="brand-info">
-                    <h3>LPI Platform</h3>
-                    <span>Dataverse Engine</span>
+    <!-- Navigation -->
+    <header class="glass-nav" id="navbar">
+        <div class="logo">Aura<span>Consult</span></div>
+        <nav>
+            <a href="#features">Features</a>
+            <a href="#solutions">Solutions</a>
+            <a href="#pricing">Pricing</a>
+        </nav>
+        <button class="btn-primary">Get Started</button>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content scroll-anim">
+                <div class="badge glass-card">🚀 Revolutionize Your Workflow</div>
+                <h1 class="gradient-text">Consulting,<br>Elevated.</h1>
+                <p>The ultimate AI-driven workspace for elite consultants. Automate client onboarding, analyze data in real-time, and scale your firm effortlessly.</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary">Start Free Trial</button>
+                    <button class="btn-secondary glass-card">Watch Demo</button>
                 </div>
             </div>
-
-            <nav class="nav-menu">
-                <div class="nav-header">Core Modules</div>
-                <a href="#" class="nav-link active" data-view="dashboard">
-                    <i class="fa-solid fa-chart-pie"></i> Dashboard & Metrics
-                </a>
-                <a href="#" class="nav-link" data-view="permits">
-                    <i class="fa-solid fa-file-invoice"></i> Permit Applications
-                </a>
-                <a href="#" class="nav-link" data-view="routing">
-                    <i class="fa-solid fa-route"></i> Dept. Review Tasks
-                </a>
-                <a href="#" class="nav-link" data-view="inspections">
-                    <i class="fa-solid fa-clipboard-check"></i> Inspections & Checklists
-                </a>
-                
-                <div class="nav-header">Governance</div>
-                <a href="#" class="nav-link" data-view="documents">
-                    <i class="fa-solid fa-folder-tree"></i> Document Vault
-                </a>
-                <a href="#" class="nav-link" data-view="audit">
-                    <i class="fa-solid fa-shield-halved"></i> Audit & Traceability
-                </a>
-                <a href="#" class="nav-link" data-view="config">
-                    <i class="fa-solid fa-sliders"></i> Routing Config
-                </a>
-            </nav>
-
-            <div class="sidebar-footer">
-                <div class="user-badge">
-                    <div class="user-avatar">AD</div>
-                    <div class="user-details">
-                        <h4>Admin Architect</h4>
-                        <span>Power Platform Lead</span>
-                    </div>
-                </div>
-            </div>
-        </aside>
-
-        <!-- Main Workspace -->
-        <main class="workspace">
             
-            <!-- Top App Header -->
-            <header class="app-header">
-                <div class="search-box">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="globalSearch" placeholder="Global search permit #, applicant, or Property ID...">
+            <div class="hero-visual scroll-anim">
+                <!-- Abstract Floating UI Elements -->
+                <div class="glass-card floating-card card-1 parallax-element">
+                    <h4>Revenue Growth</h4>
+                    <h2 class="gradient-text">+148%</h2>
+                    <div class="bar-chart"></div>
                 </div>
-                <div class="header-tools">
-                    <div class="env-tag"><i class="fa-solid fa-circle text-success"></i> Dataverse Prod</div>
-                    <button class="btn-icon" id="notificationToggle" title="Escalation Alerts">
-                        <i class="fa-regular fa-bell"></i>
-                        <span class="notification-badge" id="notifCount">3</span>
-                    </button>
-                    <button class="btn-primary" id="openNewPermitModal">
-                        <i class="fa-solid fa-plus"></i> New Permit Application
-                    </button>
-                </div>
-            </header>
-
-            <!-- ==================== VIEW 1: DASHBOARD ==================== -->
-            <section class="app-view active" id="view-dashboard">
-                <div class="welcome-banner">
-                    <div class="banner-content">
-                        <h1>Municipal Permitting & Inspection Hub</h1>
-                        <p>Digitizing full lifecycle permit management through automated Dataverse workflows, BPFs, and real-time departmental routing.</p>
+                <div class="glass-card floating-card card-2 parallax-element" data-speed="0.05">
+                    <div class="avatar"></div>
+                    <div>
+                        <h4>Sarah Jenkins</h4>
+                        <p>Meeting scheduled</p>
                     </div>
-                    <div class="banner-metrics">
-                        <div class="b-metric">
-                            <span class="bm-val" data-count="1428">0</span>
-                            <span class="bm-label">Active Permits</span>
-                        </div>
-                        <div class="b-metric">
-                            <span class="bm-val" data-count="98.4">0</span>%
-                            <span class="bm-label">SLA Adherence</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- KPI Cards -->
-                <div class="kpi-grid">
-                    <div class="kpi-card">
-                        <div class="kpi-icon blue"><i class="fa-solid fa-file-circle-plus"></i></div>
-                        <div class="kpi-body">
-                            <span>Today's Submissions</span>
-                            <h2>42</h2>
-                            <span class="trend positive"><i class="fa-solid fa-arrow-up"></i> +12% vs yesterday</span>
-                        </div>
-                    </div>
-                    <div class="kpi-card">
-                        <div class="kpi-icon purple"><i class="fa-solid fa-network-wired"></i></div>
-                        <div class="kpi-body">
-                            <span>Pending Dept Reviews</span>
-                            <h2>128</h2>
-                            <span class="trend warning"><i class="fa-solid fa-triangle-exclamation"></i> 14 Escalated</span>
-                        </div>
-                    </div>
-                    <div class="kpi-card">
-                        <div class="kpi-icon orange"><i class="fa-solid fa-clipboard-list"></i></div>
-                        <div class="kpi-body">
-                            <span>Active Field Inspections</span>
-                            <h2>64</h2>
-                            <span class="trend positive"><i class="fa-solid fa-check"></i> 89% Pass Rate</span>
-                        </div>
-                    </div>
-                    <div class="kpi-card">
-                        <div class="kpi-icon green"><i class="fa-solid fa-certificate"></i></div>
-                        <div class="kpi-body">
-                            <span>Permits Issued (YTD)</span>
-                            <h2>1,190</h2>
-                            <span class="trend positive"><i class="fa-solid fa-arrow-up"></i> Target Met</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Dashboard Quick Table -->
-                <div class="panel-card">
-                    <div class="panel-header">
-                        <h3>Recent Master Permit Records</h3>
-                        <div class="filter-group" id="dashboardFilters">
-                            <button class="chip active" data-filter="all">All Types</button>
-                            <button class="chip" data-filter="Building">Building</button>
-                            <button class="chip" data-filter="Electrical">Electrical</button>
-                            <button class="chip" data-filter="Plumbing">Plumbing</button>
-                            <button class="chip" data-filter="Demolition">Demolition</button>
-                        </div>
-                    </div>
-                    <div class="table-container">
-                        <table class="data-table" id="masterPermitTable">
-                            <thead>
-                                <tr>
-                                    <th>Permit Number</th>
-                                    <th>Permit Type</th>
-                                    <th>Applicant</th>
-                                    <th>Property ID</th>
-                                    <th>Workflow Stage</th>
-                                    <th>Status</th>
-                                    <th>Expiry Date</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="permitTableBody">
-                                <!-- Populated dynamically by JS -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ==================== VIEW 2: PERMITS ==================== -->
-            <section class="app-view" id="view-permits">
-                <div class="view-header">
-                    <h2>Permit Application Lifecycle</h2>
-                    <p>Manage core master entities, auto-generated permit numbers, and 1-year expiration calculations.</p>
-                </div>
-                <div class="panel-card">
-                    <div class="panel-header">
-                        <h3>All Permit Applications</h3>
-                        <button class="btn-primary btn-sm" id="addNewFromList"><i class="fa-solid fa-plus"></i> Add Permit</button>
-                    </div>
-                    <div class="table-container">
-                        <table class="data-table" id="fullPermitTable">
-                            <thead>
-                                <tr>
-                                    <th>Permit Number</th>
-                                    <th>Permit Type</th>
-                                    <th>Applicant</th>
-                                    <th>Property ID</th>
-                                    <th>Stage</th>
-                                    <th>Status</th>
-                                    <th>Issue Date</th>
-                                    <th>Expiry Date</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="fullPermitTableBody">
-                                <!-- Populated dynamically -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ==================== VIEW 3: ROUTING ==================== -->
-            <section class="app-view" id="view-routing">
-                <div class="view-header">
-                    <h2>Department Review Tasks & Routing</h2>
-                    <p>Monitor sequential & parallel departmental routing subgrids with automated duplicate check prevention.</p>
-                </div>
-                <div class="routing-layout">
-                    <div class="panel-card">
-                        <div class="panel-header">
-                            <h3>Active Departmental Tasks</h3>
-                            <button class="btn-primary btn-sm" id="openAddTaskModal"><i class="fa-solid fa-plus"></i> Assign Dept Task</button>
-                        </div>
-                        <div class="table-container">
-                            <table class="data-table">
-                                <thead>
-                                    <tr>
-                                        <th>Permit Ref</th>
-                                        <th>Department</th>
-                                        <th>Reviewer</th>
-                                        <th>Due Date</th>
-                                        <th>Status</th>
-                                        <th>Escalation</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="deptTaskTableBody">
-                                    <!-- Populated dynamically -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ==================== VIEW 4: INSPECTIONS ==================== -->
-            <section class="app-view" id="view-inspections">
-                <div class="view-header">
-                    <h2>Inspection Stages & 5-Point Checklists</h2>
-                    <p>Field inspection tracking, stage progressions, and standardized checklist verification.</p>
-                </div>
-                <div class="inspection-dashboard">
-                    <div class="panel-card">
-                        <div class="panel-header">
-                            <h3>Scheduled Field Inspections</h3>
-                            <div class="inspection-tabs">
-                                <button class="chip active" data-insp-stage="all">All Stages</button>
-                                <button class="chip" data-insp-stage="Building">Building (10 Stages)</button>
-                                <button class="chip" data-insp-stage="Sign">Sign (4 Stages)</button>
-                            </div>
-                        </div>
-                        <div class="table-container">
-                            <table class="data-table">
-                                <thead>
-                                    <tr>
-                                        <th>Permit Ref</th>
-                                        <th>Permit Type</th>
-                                        <th>Inspection Stage</th>
-                                        <th>Inspector Assigned</th>
-                                        <th>Scheduled Date</th>
-                                        <th>Outcome</th>
-                                        <th>Checklist</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="inspectionTableBody">
-                                    <!-- Populated dynamically -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ==================== VIEW 5: DOCUMENTS ==================== -->
-            <section class="app-view" id="view-documents">
-                <div class="view-header">
-                    <h2>Integrated Document Vault & Preview</h2>
-                    <p>Permit Document tables supporting in-app file previews instead of mandatory downloads.</p>
-                </div>
-                <div class="doc-vault-grid" id="docVaultGrid">
-                    <!-- Populated dynamically -->
-                </div>
-            </section>
-
-            <!-- ==================== VIEW 6: AUDIT ==================== -->
-            <section class="app-view" id="view-audit">
-                <div class="view-header">
-                    <h2>Dataverse Auditing & Traceability</h2>
-                    <p>Complete historical logs capturing modifications, previous values, new values, and timestamps.</p>
-                </div>
-                <div class="panel-card">
-                    <div class="panel-header">
-                        <h3>System Audit Trail</h3>
-                        <span class="text-muted text-sm">Real-time Dataverse telemetry</span>
-                    </div>
-                    <div class="table-container">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Timestamp</th>
-                                    <th>User / Actor</th>
-                                    <th>Entity Record</th>
-                                    <th>Operation</th>
-                                    <th>Previous Value</th>
-                                    <th>New Value</th>
-                                </tr>
-                            </thead>
-                            <tbody id="auditTableBody">
-                                <!-- Populated dynamically -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ==================== VIEW 7: CONFIG ==================== -->
-            <section class="app-view" id="view-config">
-                <div class="view-header">
-                    <h2>Routing & Workflow Configuration Tables</h2>
-                    <p>Configurable routing matrices determining participating departments and workflow dependencies.</p>
-                </div>
-                <div class="panel-card">
-                    <div class="panel-header">
-                        <h3>Permit Routing Rules Matrix</h3>
-                    </div>
-                    <div class="table-container">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Permit Type</th>
-                                    <th>Required Departments</th>
-                                    <th>Routing Type</th>
-                                    <th>Inspection Stages Count</th>
-                                    <th>Auto-Approval Rule</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>Building (Commercial)</strong></td>
-                                    <td>Zoning, Structural, Fire Safety, Plumbing</td>
-                                    <td><span class="badge info">Sequential</span></td>
-                                    <td>10 Stages</td>
-                                    <td><span class="badge success">Enabled</span></td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Electrical Upgrade</strong></td>
-                                    <td>Electrical Dept, Safety Inspection</td>
-                                    <td><span class="badge purple">Parallel</span></td>
-                                    <td>5 Stages</td>
-                                    <td><span class="badge success">Enabled</span></td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Sign Permit</strong></td>
-                                    <td>Zoning, Structural</td>
-                                    <td><span class="badge info">Sequential</span></td>
-                                    <td>4 Stages</td>
-                                    <td><span class="badge warning">Manual Review</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-        </main>
-    </div>
-
-    <!-- ==================== MODALS ==================== -->
-    
-    <!-- New Permit Modal -->
-    <div class="modal-backdrop" id="newPermitModal">
-        <div class="modal-card">
-            <div class="modal-header">
-                <h3>Create New Permit Application</h3>
-                <button class="modal-close" id="closePermitModal"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div class="modal-body">
-                <form id="permitForm">
-                    <div class="form-group">
-                        <label>Permit Type</label>
-                        <select id="formPermitType" class="form-control" required>
-                            <option value="Building">Building (Commercial)</option>
-                            <option value="Electrical">Electrical Upgrade</option>
-                            <option value="Plumbing">Plumbing & HVAC</option>
-                            <option value="Demolition">Demolition & Grading</option>
-                            <option value="Sign">Sign Permit</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Applicant Name / Organization</label>
-                        <input type="text" id="formApplicant" class="form-control" placeholder="e.g. Apex Developments LLC" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Property Identification (PID)</label>
-                        <input type="text" id="formPropertyId" class="form-control" placeholder="e.g. PID-4409-8812" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Project Address</label>
-                        <input type="text" id="formAddress" class="form-control" placeholder="e.g. 742 Evergreen Terrace" required>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Issue Date (Auto Set)</label>
-                            <input type="date" id="formIssueDate" class="form-control" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label>Expiry Date (Auto +1 Year)</label>
-                            <input type="date" id="formExpiryDate" class="form-control" readonly>
-                        </div>
-                    </div>
-                    <div class="modal-actions">
-                        <button type="button" class="btn-secondary" id="cancelPermitModal">Cancel</button>
-                        <button type="submit" class="btn-primary">Save to Dataverse</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Checklist Modal -->
-    <div class="modal-backdrop" id="checklistModal">
-        <div class="modal-card">
-            <div class="modal-header">
-                <h3 id="checklistModalTitle">Inspection 5-Point Checklist</h3>
-                <button class="modal-close" id="closeChecklistModal"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div class="modal-body">
-                <p class="text-muted text-sm mb-3">Complete standardized verification items during field inspection:</p>
-                <div class="checklist-items" id="checklistContainer">
-                    <!-- Populated dynamically -->
-                </div>
-                <div class="modal-actions mt-4">
-                    <button type="button" class="btn-secondary" id="cancelChecklist">Close</button>
-                    <button type="button" class="btn-primary" id="saveChecklistBtn">Submit Inspection Result</button>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <!-- Script File -->
+        <!-- Features Section -->
+        <section id="features" class="features">
+            <div class="section-title scroll-anim">
+                <h2>Unfair Advantages</h2>
+                <p>Everything you need to run a high-ticket consulting business.</p>
+            </div>
+            
+            <div class="feature-grid">
+                <div class="glass-card feature-card scroll-anim">
+                    <div class="icon">🧠</div>
+                    <h3>AI Strategy Copilot</h3>
+                    <p>Let our AI analyze client data and generate actionable roadmaps in seconds, saving you hundreds of hours.</p>
+                </div>
+                <div class="glass-card feature-card scroll-anim" style="transition-delay: 0.2s;">
+                    <div class="icon">⚡</div>
+                    <h3>Frictionless Billing</h3>
+                    <p>Automate retainers, track billable hours accurately, and get paid faster with our integrated gateway.</p>
+                </div>
+                <div class="glass-card feature-card scroll-anim" style="transition-delay: 0.4s;">
+                    <div class="icon">🌐</div>
+                    <h3>White-Label Portal</h3>
+                    <p>Give your clients a breathtaking, branded dashboard to view progress, reports, and communicate directly.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="cta-section scroll-anim">
+            <div class="glass-card cta-card">
+                <h2>Ready to scale your impact?</h2>
+                <p>Join 10,000+ consultants who are already shaping the future with AuraConsult.</p>
+                <button class="btn-primary" style="margin-top: 2rem;">Join the Waitlist</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="glass-card">
+        <p>&copy; 2023 AuraConsult Inc. Designed for greatness.</p>
+    </footer>
+
     <script src="mycustom.js"></script>
 </body>
 </html>
