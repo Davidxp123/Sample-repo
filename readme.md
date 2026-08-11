@@ -20,8 +20,3 @@ A fully responsive, highly interactive, deep-sea/cyberpunk glassmorphic landing 
     - **Smooth Scroll API:** Hijacks `a[href^="#"]` clicks to calculate exact scrolling positions.
     - **VanillaTilt Engine:** Does complex DOM client rectangle math to apply `rotateX` and `rotateY` transforms natively.
 
-## 🚀 How to Run
-
-1. Place `index.html`, `style.css`, and `mycustom.js` in a single folder.
-2. Open `index.html` in Chrome, Safari, or Firefox.
-3. Test out resizing the window to see the mobile menu, scroll to see the animations, and click **any button** to test the new dynamic modal!
