@@ -1,28 +1,32 @@
+/**
+ * AuraConsult - Core Interaction Engine
+ * This file handles all advanced DOM interactions, 
+ * scroll monitoring, mathematics for 3D UI, and Intersection Observers.
+ */
+
 document.addEventListener("DOMContentLoaded", () => {
     
-    // 1. Scroll Reveal Animation using Intersection Observer
-    // This creates the beautiful effect of elements sliding and fading in as you scroll down
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.15 // Triggers when 15% of the element is visible
+    // ==========================================
+    // 1. Scroll Progress Bar Update
+    // ==========================================
+    const progressBar = document.querySelector('.scroll-progress');
+    
+    const updateScrollProgress = () => {
+        // Calculate how far down the user has scrolled
+        const scrollPx = document.documentElement.scrollTop;
+        const winHeightPx = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrollLen = Math.round((scrollPx / winHeightPx) * 100);
+        
+        // Apply width to progress bar
+        progressBar.style.width = scrollLen + "%";
     };
 
-    const scrollObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                // Optional: Stop observing once it's visible if you only want it to animate once
-                // observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
+    window.addEventListener("scroll", updateScrollProgress);
 
-    const animatedElements = document.querySelectorAll('.scroll-anim');
-    animatedElements.forEach(el => scrollObserver.observe(el));
 
-    // 2. Dynamic Glass Navbar on Scroll
-    // Increases the blur and shadow of the navbar when the user scrolls down
+    // ==========================================
+    // 2. Dynamic Glass Navbar
+    // ==========================================
     const navbar = document.getElementById('navbar');
     
     window.addEventListener('scroll', () => {
@@ -33,41 +37,158 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // 3. Super Cool Interactive Mouse Parallax Effect on Hero Cards
-    // Makes the floating glass cards react slightly to user mouse movement
-    const parallaxElements = document.querySelectorAll('.parallax-element');
-    const heroSection = document.querySelector('.hero');
 
-    heroSection.addEventListener('mousemove', (e) => {
-        const x = e.clientX;
-        const y = e.clientY;
-        const centerX = window.innerWidth / 2;
-        const centerY = window.innerHeight / 2;
+    // ==========================================
+    // 3. Advanced Scroll Reveal using Intersection Observer
+    // ==========================================
+    const revealElements = document.querySelectorAll('.reveal-up');
 
-        parallaxElements.forEach((el, index) => {
-            // Give different cards different movement speeds
-            const speed = index === 0 ? 0.03 : 0.06;
-            
-            // Calculate distance from center
-            const moveX = (x - centerX) * speed;
-            const moveY = (y - centerY) * speed;
+    const revealOptions = {
+        root: null,
+        rootMargin: '0px 0px -100px 0px', // Triggers slightly before element enters view
+        threshold: 0.1
+    };
 
-            // Apply movement on top of existing CSS animations
-            el.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add active class to trigger CSS transform and opacity
+                entry.target.classList.add('active');
+                // Unobserve to run animation only once
+                observer.unobserve(entry.target);
+            }
         });
-    });
+    }, revealOptions);
 
-    // Reset transform when mouse leaves hero section
-    heroSection.addEventListener('mouseleave', () => {
-        parallaxElements.forEach(el => {
-            el.style.transform = `translate(0px, 0px)`;
-            // CSS transition will smoothly return it to the normal float animation
-            el.style.transition = "transform 0.5s ease-out"; 
+    revealElements.forEach(el => revealObserver.observe(el));
+
+
+    // ==========================================
+    // 4. Dynamic Number Counters (Stats Section)
+    // ==========================================
+    const counters = document.querySelectorAll('.counter');
+    let hasCounted = false;
+
+    const countUp = (el) => {
+        const target = +el.getAttribute('data-target');
+        const duration = 2000; // 2 seconds total animation
+        const frameRate = 1000 / 60; // 60fps
+        const totalFrames = Math.round(duration / frameRate);
+        let frame = 0;
+
+        const counterInterval = setInterval(() => {
+            frame++;
+            // Ease-out calculation for smooth deceleration
+            const progress = 1 - Math.pow(1 - frame / totalFrames, 3);
+            const currentCount = (target * progress).toFixed(target % 1 === 0 ? 0 : 1);
             
-            // Remove transition after it resets so mousemove works smoothly again
+            el.innerText = currentCount;
+
+            if (frame >= totalFrames) {
+                clearInterval(counterInterval);
+                el.innerText = target; // Ensure exact final value
+            }
+        }, frameRate);
+    };
+
+    // Observer to trigger counter ONLY when stats section is visible
+    const statsSection = document.querySelector('.stats-section');
+    if (statsSection) {
+        const statsObserver = new IntersectionObserver((entries) => {
+            const entry = entries[0];
+            if (entry.isIntersecting && !hasCounted) {
+                hasCounted = true;
+                counters.forEach(counter => countUp(counter));
+            }
+        }, { threshold: 0.5 });
+        
+        statsObserver.observe(statsSection);
+    }
+
+
+    // ==========================================
+    // 5. Advanced 3D Mouse Tilt Effect (Vanilla JS alternative to VanillaTilt)
+    // ==========================================
+    const tiltCards = document.querySelectorAll('.tilt-card');
+
+    tiltCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            // Get dimensions of the element
+            const rect = card.getBoundingClientRect();
+            const width = rect.width;
+            const height = rect.height;
+            
+            // Get mouse position relative to element center
+            const mouseX = e.clientX - rect.left - width / 2;
+            const mouseY = e.clientY - rect.top - height / 2;
+
+            // Calculate rotation degree based on mouse position (Max 10 degrees)
+            const rotateX = (mouseY / (height / 2)) * -10;
+            const rotateY = (mouseX / (width / 2)) * 10;
+
+            // Apply transform - combining the card's original transform (if it's the hero mockup)
+            let baseTransform = '';
+            if (card.classList.contains('dashboard-mockup')) {
+                // If it's the mockup, keep its base 3D perspective
+                baseTransform = `perspective(1000px) `;
+            } else {
+                baseTransform = `perspective(1000px) scale(1.02) `;
+            }
+
+            card.style.transform = `${baseTransform} rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            
+            // Optional: Adjust border highlight based on mouse position to simulate lighting
+            card.style.borderColor = `rgba(255, 255, 255, 0.2)`;
+        });
+
+        // Reset state on mouse leave
+        card.addEventListener('mouseleave', () => {
+            // Smooth transition back to original
+            card.style.transition = 'transform 0.5s ease-out, border-color 0.5s';
+            
+            if (card.classList.contains('dashboard-mockup')) {
+                card.style.transform = `perspective(1000px) rotateY(-15deg) rotateX(5deg)`;
+            } else if (card.classList.contains('premium')) {
+                 card.style.transform = `scale(1.05)`; // keep premium card slightly larger
+            } else {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
+            }
+            
+            card.style.borderColor = `var(--glass-border)`;
+
+            // Remove transition after animation so it doesn't lag on next mouseover
             setTimeout(() => {
-                el.style.transition = "";
+                card.style.transition = 'transform 0.1s ease-out';
             }, 500);
         });
     });
+
+
+    // ==========================================
+    // 6. Parallax effect for floating dashboard widgets
+    // ==========================================
+    const heroSection = document.querySelector('.hero');
+    const parallaxElements = document.querySelectorAll('.parallax');
+    const parallaxReverse = document.querySelectorAll('.parallax-reverse');
+
+    if (heroSection) {
+        heroSection.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth - e.pageX) / 90;
+            const y = (window.innerHeight - e.pageY) / 90;
+
+            parallaxElements.forEach(el => {
+                el.style.transform = `translate(${x}px, ${y}px)`;
+            });
+
+            parallaxReverse.forEach(el => {
+                el.style.transform = `translate(-${x}px, -${y}px)`;
+            });
+        });
+        
+        // Reset
+        heroSection.addEventListener('mouseleave', () => {
+            parallaxElements.forEach(el => { el.style.transform = `translate(0px, 0px)`; });
+            parallaxReverse.forEach(el => { el.style.transform = `translate(0px, 0px)`; });
+        });
+    }
 });

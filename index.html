@@ -3,95 +3,294 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AuraConsult | Next-Gen Consulting SaaS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <title>AuraConsult | The Elite Consulting OS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Animated Background Orbs -->
-    <div class="bg-shape shape-1"></div>
-    <div class="bg-shape shape-2"></div>
-    <div class="bg-shape shape-3"></div>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress"></div>
 
-    <!-- Navigation -->
-    <header class="glass-nav" id="navbar">
-        <div class="logo">Aura<span>Consult</span></div>
-        <nav>
-            <a href="#features">Features</a>
-            <a href="#solutions">Solutions</a>
-            <a href="#pricing">Pricing</a>
-        </nav>
-        <button class="btn-primary">Get Started</button>
+    <!-- Ambient Background Glows -->
+    <div class="ambient-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header class="glass-header" id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon"></div>
+                Aura<span>Consult</span>
+            </a>
+            <nav class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#how-it-works">Workflow</a>
+                <a href="#testimonials">Reviews</a>
+                <a href="#pricing">Pricing</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="#" class="login-link">Log In</a>
+                <button class="btn btn-primary">Start Free Trial</button>
+            </div>
+        </div>
     </header>
 
     <main>
         <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-content scroll-anim">
-                <div class="badge glass-card">🚀 Revolutionize Your Workflow</div>
-                <h1 class="gradient-text">Consulting,<br>Elevated.</h1>
-                <p>The ultimate AI-driven workspace for elite consultants. Automate client onboarding, analyze data in real-time, and scale your firm effortlessly.</p>
-                <div class="hero-buttons">
-                    <button class="btn-primary">Start Free Trial</button>
-                    <button class="btn-secondary glass-card">Watch Demo</button>
+        <section class="hero" id="home">
+            <div class="container hero-container">
+                <div class="hero-content reveal-up">
+                    <div class="pill-badge glass-panel">
+                        <span class="pulse-dot"></span> AuraConsult 2.0 is now live
+                    </div>
+                    <h1 class="hero-title">
+                        Scale your consulting firm with <span class="text-gradient">Intelligent Automation.</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        The all-in-one glassmorphic workspace designed for elite consultants. Automate client onboarding, analyze market data with AI, and manage high-ticket retainers flawlessly.
+                    </p>
+                    <div class="hero-cta">
+                        <button class="btn btn-primary btn-large">Get Started for Free</button>
+                        <button class="btn btn-secondary btn-large glass-panel"><span class="icon">▶</span> Book a Demo</button>
+                    </div>
+                    <p class="guarantee">No credit card required • 14-day free trial</p>
                 </div>
-            </div>
-            
-            <div class="hero-visual scroll-anim">
-                <!-- Abstract Floating UI Elements -->
-                <div class="glass-card floating-card card-1 parallax-element">
-                    <h4>Revenue Growth</h4>
-                    <h2 class="gradient-text">+148%</h2>
-                    <div class="bar-chart"></div>
-                </div>
-                <div class="glass-card floating-card card-2 parallax-element" data-speed="0.05">
-                    <div class="avatar"></div>
-                    <div>
-                        <h4>Sarah Jenkins</h4>
-                        <p>Meeting scheduled</p>
+
+                <div class="hero-visual reveal-up delay-2">
+                    <!-- Main Dashboard Mockup -->
+                    <div class="glass-panel dashboard-mockup tilt-card">
+                        <div class="mockup-header">
+                            <div class="window-controls">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <div class="mockup-title">Aura Workspace</div>
+                        </div>
+                        <div class="mockup-body">
+                            <div class="mockup-sidebar"></div>
+                            <div class="mockup-content">
+                                <div class="mockup-chart"></div>
+                                <div class="mockup-cards">
+                                    <div class="m-card"></div>
+                                    <div class="m-card"></div>
+                                    <div class="m-card"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Floating elements over the dashboard -->
+                        <div class="glass-panel float-widget widget-1 parallax">
+                            <div class="widget-icon success">✓</div>
+                            <div class="widget-text">
+                                <h4>Invoice Paid</h4>
+                                <p>$12,500.00 from Acme Corp</p>
+                            </div>
+                        </div>
+                        <div class="glass-panel float-widget widget-2 parallax-reverse">
+                            <div class="avatar-group">
+                                <div class="av"></div><div class="av"></div><div class="av"></div>
+                            </div>
+                            <div class="widget-text">
+                                <h4>New Client Onboarded</h4>
+                                <p>Strategy sync at 2:00 PM</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Features Section -->
-        <section id="features" class="features">
-            <div class="section-title scroll-anim">
-                <h2>Unfair Advantages</h2>
-                <p>Everything you need to run a high-ticket consulting business.</p>
+        <!-- Social Proof Section -->
+        <section class="trusted-by reveal-up">
+            <p>TRUSTED BY INNOVATIVE FIRMS WORLDWIDE</p>
+            <div class="logo-cloud">
+                <div class="company-logo">AcmeCorp</div>
+                <div class="company-logo">Globex</div>
+                <div class="company-logo">Soylent</div>
+                <div class="company-logo">Initech</div>
+                <div class="company-logo">Umbrella</div>
             </div>
-            
-            <div class="feature-grid">
-                <div class="glass-card feature-card scroll-anim">
-                    <div class="icon">🧠</div>
-                    <h3>AI Strategy Copilot</h3>
-                    <p>Let our AI analyze client data and generate actionable roadmaps in seconds, saving you hundreds of hours.</p>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features" id="features">
+            <div class="container">
+                <div class="section-header reveal-up">
+                    <h2 class="section-title">Everything you need to <span class="text-gradient">dominate</span></h2>
+                    <p class="section-desc">Replace your fragmented stack of tools with one unified, beautifully designed operating system.</p>
                 </div>
-                <div class="glass-card feature-card scroll-anim" style="transition-delay: 0.2s;">
-                    <div class="icon">⚡</div>
-                    <h3>Frictionless Billing</h3>
-                    <p>Automate retainers, track billable hours accurately, and get paid faster with our integrated gateway.</p>
-                </div>
-                <div class="glass-card feature-card scroll-anim" style="transition-delay: 0.4s;">
-                    <div class="icon">🌐</div>
-                    <h3>White-Label Portal</h3>
-                    <p>Give your clients a breathtaking, branded dashboard to view progress, reports, and communicate directly.</p>
+
+                <div class="grid-3">
+                    <div class="glass-panel feature-card tilt-card reveal-up">
+                        <div class="feature-icon">🧠</div>
+                        <h3>AI Strategy Copilot</h3>
+                        <p>Upload client datasets and let our proprietary AI generate comprehensive strategy roadmaps and risk analyses in seconds.</p>
+                    </div>
+                    <div class="glass-panel feature-card tilt-card reveal-up delay-1">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Automated Workflows</h3>
+                        <p>Create triggers for client onboarding, contract signing, and automated follow-ups without writing a single line of code.</p>
+                    </div>
+                    <div class="glass-panel feature-card tilt-card reveal-up delay-2">
+                        <div class="feature-icon">📈</div>
+                        <h3>Real-time Analytics</h3>
+                        <p>Track billable hours, project margins, and consultant utilization rates through gorgeous, interactive dashboards.</p>
+                    </div>
+                    <div class="glass-panel feature-card tilt-card reveal-up">
+                        <div class="feature-icon">🤝</div>
+                        <h3>Client Portals</h3>
+                        <p>Provide your clients with a white-labeled, secure glassmorphic portal to view deliverables, invoices, and project statuses.</p>
+                    </div>
+                    <div class="glass-panel feature-card tilt-card reveal-up delay-1">
+                        <div class="feature-icon">💳</div>
+                        <h3>Smart Invoicing</h3>
+                        <p>Automate retainer billing, accept global payments in 135+ currencies, and automatically chase late payments.</p>
+                    </div>
+                    <div class="glass-panel feature-card tilt-card reveal-up delay-2">
+                        <div class="feature-icon">🔒</div>
+                        <h3>Bank-Grade Security</h3>
+                        <p>Your firm's data is protected with AES-256 encryption, SOC 2 Type II compliance, and granular role-based access control.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Call to Action -->
-        <section class="cta-section scroll-anim">
-            <div class="glass-card cta-card">
-                <h2>Ready to scale your impact?</h2>
-                <p>Join 10,000+ consultants who are already shaping the future with AuraConsult.</p>
-                <button class="btn-primary" style="margin-top: 2rem;">Join the Waitlist</button>
+        <!-- Stats Section -->
+        <section class="stats-section" id="stats">
+            <div class="container glass-panel stats-container reveal-up">
+                <div class="stat-box">
+                    <h2 class="counter" data-target="15000">0</h2><span>+</span>
+                    <p>Consulting Firms</p>
+                </div>
+                <div class="stat-box">
+                    <h2 class="counter" data-target="2.4">0</h2><span>B+</span>
+                    <p>Invoices Processed</p>
+                </div>
+                <div class="stat-box">
+                    <h2 class="counter" data-target="99.9">0</h2><span>%</span>
+                    <p>Platform Uptime</p>
+                </div>
+                <div class="stat-box">
+                    <h2 class="counter" data-target="35">0</h2><span>hrs</span>
+                    <p>Saved Weekly/User</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section class="pricing" id="pricing">
+            <div class="container">
+                <div class="section-header reveal-up">
+                    <h2 class="section-title">Transparent, <span class="text-gradient">scalable pricing</span></h2>
+                    <p class="section-desc">Start for free, upgrade when you need more power. No hidden fees.</p>
+                </div>
+
+                <div class="pricing-grid">
+                    <!-- Starter -->
+                    <div class="glass-panel price-card tilt-card reveal-up">
+                        <div class="plan-name">Starter</div>
+                        <div class="plan-price">$49<span>/mo</span></div>
+                        <p class="plan-desc">Perfect for solo consultants and boutique firms.</p>
+                        <ul class="plan-features">
+                            <li>Up to 3 Team Members</li>
+                            <li>Basic AI Strategy Copilot</li>
+                            <li>Standard Client Portals</li>
+                            <li>Email Support</li>
+                        </ul>
+                        <button class="btn btn-secondary btn-full">Start 14-Day Trial</button>
+                    </div>
+
+                    <!-- Pro (Highlighted) -->
+                    <div class="glass-panel price-card premium tilt-card reveal-up delay-1">
+                        <div class="popular-badge">Most Popular</div>
+                        <div class="plan-name">Professional</div>
+                        <div class="plan-price">$99<span>/mo</span></div>
+                        <p class="plan-desc">For growing agencies needing advanced automation.</p>
+                        <ul class="plan-features">
+                            <li>Up to 10 Team Members</li>
+                            <li>Advanced AI Analysis</li>
+                            <li>White-labeled Portals</li>
+                            <li>Custom Workflows</li>
+                            <li>Priority 24/7 Support</li>
+                        </ul>
+                        <button class="btn btn-primary btn-full">Start 14-Day Trial</button>
+                    </div>
+
+                    <!-- Enterprise -->
+                    <div class="glass-panel price-card tilt-card reveal-up delay-2">
+                        <div class="plan-name">Enterprise</div>
+                        <div class="plan-price">Custom</div>
+                        <p class="plan-desc">Dedicated infrastructure for massive scale.</p>
+                        <ul class="plan-features">
+                            <li>Unlimited Team Members</li>
+                            <li>Custom AI Model Training</li>
+                            <li>Dedicated Account Manager</li>
+                            <li>On-premise Deployment</li>
+                        </ul>
+                        <button class="btn btn-secondary btn-full">Contact Sales</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="glass-panel cta-box reveal-up">
+                    <div class="cta-content">
+                        <h2>Ready to transform your consulting business?</h2>
+                        <p>Join thousands of top-tier consultants shaping the future of work.</p>
+                        <div class="cta-buttons">
+                            <button class="btn btn-primary btn-large">Create Free Account</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
-    <footer class="glass-card">
-        <p>&copy; 2023 AuraConsult Inc. Designed for greatness.</p>
+    <!-- Footer -->
+    <footer class="glass-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <div class="logo-icon"></div>
+                    Aura<span>Consult</span>
+                </a>
+                <p>The operating system for the next generation of consultants. Designed with precision, built for scale.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Product</h4>
+                <a href="#">Features</a>
+                <a href="#">Integrations</a>
+                <a href="#">Pricing</a>
+                <a href="#">Changelog</a>
+            </div>
+            <div class="footer-links">
+                <h4>Company</h4>
+                <a href="#">About Us</a>
+                <a href="#">Careers</a>
+                <a href="#">Blog</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="footer-newsletter">
+                <h4>Subscribe</h4>
+                <p>Get the latest updates and consulting tips.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email" class="glass-input">
+                    <button class="btn btn-primary">→</button>
+                </form>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2023 AuraConsult Inc. All rights reserved.</p>
+            <div class="legal-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+        </div>
     </footer>
 
     <script src="mycustom.js"></script>
