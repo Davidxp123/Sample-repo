@@ -19,22 +19,58 @@
         <div class="orb orb-4"></div>
     </div>
 
+    <!-- Global Glass Modal (Hidden by default) -->
+    <div class="modal-overlay" id="global-modal">
+        <div class="glass-panel modal-content">
+            <button class="modal-close" id="close-modal">&times;</button>
+            <div class="modal-icon">✨</div>
+            <h3 id="modal-title">Action Triggered</h3>
+            <p id="modal-desc">This is a dynamic interactive element. In a live production environment, this would redirect you or open a specific form.</p>
+            <form class="modal-form" id="modal-form">
+                <input type="email" placeholder="Enter your business email" class="glass-input" required>
+                <button type="submit" class="btn btn-primary btn-full">Continue</button>
+            </form>
+        </div>
+    </div>
+
     <!-- Header & Navigation -->
     <header class="glass-header" id="navbar">
         <div class="container nav-container">
-            <a href="#" class="logo">
+            <a href="#home" class="logo">
                 <div class="logo-icon"></div>
                 Aura<span>Consult</span>
             </a>
+            
+            <!-- Desktop Nav -->
             <nav class="nav-links">
                 <a href="#features">Features</a>
                 <a href="#how-it-works">Workflow</a>
                 <a href="#testimonials">Reviews</a>
                 <a href="#pricing">Pricing</a>
             </nav>
+            
             <div class="nav-actions">
-                <a href="#" class="login-link">Log In</a>
-                <button class="btn btn-primary">Start Free Trial</button>
+                <a href="#" class="login-link trigger-modal" data-action="Login">Log In</a>
+                <button class="btn btn-primary trigger-modal" data-action="Start Free Trial">Start Free Trial</button>
+            </div>
+
+            <!-- Mobile Hamburger -->
+            <div class="mobile-menu-btn" id="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div class="mobile-menu glass-panel" id="mobile-menu">
+            <a href="#features" class="mobile-link">Features</a>
+            <a href="#how-it-works" class="mobile-link">Workflow</a>
+            <a href="#testimonials" class="mobile-link">Reviews</a>
+            <a href="#pricing" class="mobile-link">Pricing</a>
+            <div class="mobile-actions">
+                <a href="#" class="login-link trigger-modal" data-action="Login">Log In</a>
+                <button class="btn btn-primary trigger-modal" data-action="Start Free Trial">Start Free Trial</button>
             </div>
         </div>
     </header>
@@ -54,14 +90,13 @@
                         The all-in-one glassmorphic workspace designed for elite consultants. Automate client onboarding, analyze market data with AI, and manage high-ticket retainers flawlessly.
                     </p>
                     <div class="hero-cta">
-                        <button class="btn btn-primary btn-large">Get Started for Free</button>
-                        <button class="btn btn-secondary btn-large glass-panel"><span class="icon">▶</span> Book a Demo</button>
+                        <button class="btn btn-primary btn-large trigger-modal" data-action="Create Free Account">Get Started for Free</button>
+                        <button class="btn btn-secondary btn-large glass-panel trigger-modal" data-action="Book Demo"><span class="icon">▶</span> Book a Demo</button>
                     </div>
                     <p class="guarantee">No credit card required • 14-day free trial</p>
                 </div>
 
                 <div class="hero-visual reveal-up delay-2">
-                    <!-- Main Dashboard Mockup -->
                     <div class="glass-panel dashboard-mockup tilt-card">
                         <div class="mockup-header">
                             <div class="window-controls">
@@ -80,7 +115,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Floating elements over the dashboard -->
                         <div class="glass-panel float-widget widget-1 parallax">
                             <div class="widget-icon success">✓</div>
                             <div class="widget-text">
@@ -105,12 +139,12 @@
         <!-- Social Proof Section -->
         <section class="trusted-by reveal-up">
             <p>TRUSTED BY INNOVATIVE FIRMS WORLDWIDE</p>
-            <div class="logo-cloud">
-                <div class="company-logo">AcmeCorp</div>
-                <div class="company-logo">Globex</div>
-                <div class="company-logo">Soylent</div>
-                <div class="company-logo">Initech</div>
-                <div class="company-logo">Umbrella</div>
+            <div class="logo-cloud container">
+                <div class="company-logo trigger-modal" data-action="AcmeCorp Case Study">AcmeCorp</div>
+                <div class="company-logo trigger-modal" data-action="Globex Case Study">Globex</div>
+                <div class="company-logo trigger-modal" data-action="Soylent Case Study">Soylent</div>
+                <div class="company-logo trigger-modal" data-action="Initech Case Study">Initech</div>
+                <div class="company-logo trigger-modal" data-action="Umbrella Case Study">Umbrella</div>
             </div>
         </section>
 
@@ -157,6 +191,39 @@
             </div>
         </section>
 
+        <!-- How It Works / Workflow Section -->
+        <section class="workflow" id="how-it-works">
+            <div class="container">
+                <div class="section-header reveal-up">
+                    <h2 class="section-title">A seamless <span class="text-gradient">Workflow</span></h2>
+                    <p class="section-desc">From lead generation to retainer renewal, AuraConsult automates the busywork.</p>
+                </div>
+                
+                <div class="workflow-grid">
+                    <div class="workflow-step reveal-up">
+                        <div class="step-number glass-panel">1</div>
+                        <h3>Connect</h3>
+                        <p>Sync your calendar, email, and bank accounts in one click to centralize your consulting business.</p>
+                    </div>
+                    <div class="workflow-step reveal-up delay-1">
+                        <div class="step-number glass-panel">2</div>
+                        <h3>Analyze</h3>
+                        <p>Our AI processes client data securely, offering predictive insights and strategic recommendations.</p>
+                    </div>
+                    <div class="workflow-step reveal-up delay-2">
+                        <div class="step-number glass-panel">3</div>
+                        <h3>Automate</h3>
+                        <p>Set up smart triggers that send contracts, generate reports, and chase invoices while you sleep.</p>
+                    </div>
+                    <div class="workflow-step reveal-up delay-3">
+                        <div class="step-number glass-panel">4</div>
+                        <h3>Scale</h3>
+                        <p>Leverage rich analytics to optimize your pricing, increase utilization, and grow your agency effortlessly.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Stats Section -->
         <section class="stats-section" id="stats">
             <div class="container glass-panel stats-container reveal-up">
@@ -175,6 +242,52 @@
                 <div class="stat-box">
                     <h2 class="counter" data-target="35">0</h2><span>hrs</span>
                     <p>Saved Weekly/User</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials / Reviews Section -->
+        <section class="testimonials" id="testimonials">
+            <div class="container">
+                <div class="section-header reveal-up">
+                    <h2 class="section-title">Loved by <span class="text-gradient">Industry Leaders</span></h2>
+                    <p class="section-desc">Don't just take our word for it. Here is what top consultants have to say.</p>
+                </div>
+
+                <div class="grid-3">
+                    <div class="glass-panel review-card reveal-up">
+                        <div class="stars">★★★★★</div>
+                        <p class="review-text">"AuraConsult completely changed how I run my boutique firm. The AI strategy copilot alone saves me about 15 hours a week in research. It feels like magic."</p>
+                        <div class="reviewer">
+                            <div class="rev-av" style="background: var(--primary);"></div>
+                            <div>
+                                <h4>Sarah Jenkins</h4>
+                                <span>Managing Partner, Apex Strat</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-panel review-card reveal-up delay-1">
+                        <div class="stars">★★★★★</div>
+                        <p class="review-text">"The client portal is breathtaking. My high-ticket clients constantly praise how professional and seamless our onboarding and reporting processes have become."</p>
+                        <div class="reviewer">
+                            <div class="rev-av" style="background: var(--secondary);"></div>
+                            <div>
+                                <h4>David Chen</h4>
+                                <span>Founder, ScaleOps</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-panel review-card reveal-up delay-2">
+                        <div class="stars">★★★★★</div>
+                        <p class="review-text">"We moved our 20-person agency over to AuraConsult last year. The automated billing and real-time utilization dashboards increased our profit margins by 22%."</p>
+                        <div class="reviewer">
+                            <div class="rev-av" style="background: var(--primary-dark);"></div>
+                            <div>
+                                <h4>Elena Rodriguez</h4>
+                                <span>Director, Vanguards</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -199,10 +312,10 @@
                             <li>Standard Client Portals</li>
                             <li>Email Support</li>
                         </ul>
-                        <button class="btn btn-secondary btn-full">Start 14-Day Trial</button>
+                        <button class="btn btn-secondary btn-full trigger-modal" data-action="Subscribe Starter">Start 14-Day Trial</button>
                     </div>
 
-                    <!-- Pro (Highlighted) -->
+                    <!-- Pro -->
                     <div class="glass-panel price-card premium tilt-card reveal-up delay-1">
                         <div class="popular-badge">Most Popular</div>
                         <div class="plan-name">Professional</div>
@@ -215,7 +328,7 @@
                             <li>Custom Workflows</li>
                             <li>Priority 24/7 Support</li>
                         </ul>
-                        <button class="btn btn-primary btn-full">Start 14-Day Trial</button>
+                        <button class="btn btn-primary btn-full trigger-modal" data-action="Subscribe Professional">Start 14-Day Trial</button>
                     </div>
 
                     <!-- Enterprise -->
@@ -229,7 +342,7 @@
                             <li>Dedicated Account Manager</li>
                             <li>On-premise Deployment</li>
                         </ul>
-                        <button class="btn btn-secondary btn-full">Contact Sales</button>
+                        <button class="btn btn-secondary btn-full trigger-modal" data-action="Contact Sales">Contact Sales</button>
                     </div>
                 </div>
             </div>
@@ -243,7 +356,7 @@
                         <h2>Ready to transform your consulting business?</h2>
                         <p>Join thousands of top-tier consultants shaping the future of work.</p>
                         <div class="cta-buttons">
-                            <button class="btn btn-primary btn-large">Create Free Account</button>
+                            <button class="btn btn-primary btn-large trigger-modal" data-action="Final CTA Sign Up">Create Free Account</button>
                         </div>
                     </div>
                 </div>
@@ -255,7 +368,7 @@
     <footer class="glass-footer">
         <div class="container footer-grid">
             <div class="footer-brand">
-                <a href="#" class="logo">
+                <a href="#home" class="logo">
                     <div class="logo-icon"></div>
                     Aura<span>Consult</span>
                 </a>
@@ -263,32 +376,32 @@
             </div>
             <div class="footer-links">
                 <h4>Product</h4>
-                <a href="#">Features</a>
-                <a href="#">Integrations</a>
-                <a href="#">Pricing</a>
-                <a href="#">Changelog</a>
+                <a href="#features">Features</a>
+                <a href="#" class="trigger-modal" data-action="Integrations Info">Integrations</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#" class="trigger-modal" data-action="Changelog Info">Changelog</a>
             </div>
             <div class="footer-links">
                 <h4>Company</h4>
-                <a href="#">About Us</a>
-                <a href="#">Careers</a>
-                <a href="#">Blog</a>
-                <a href="#">Contact</a>
+                <a href="#" class="trigger-modal" data-action="About Us">About Us</a>
+                <a href="#" class="trigger-modal" data-action="Careers">Careers</a>
+                <a href="#" class="trigger-modal" data-action="Blog">Blog</a>
+                <a href="#" class="trigger-modal" data-action="Contact Form">Contact</a>
             </div>
             <div class="footer-newsletter">
                 <h4>Subscribe</h4>
                 <p>Get the latest updates and consulting tips.</p>
-                <form class="newsletter-form">
-                    <input type="email" placeholder="Enter your email" class="glass-input">
-                    <button class="btn btn-primary">→</button>
+                <form class="newsletter-form" id="newsletter-form">
+                    <input type="email" placeholder="Enter your email" class="glass-input" required>
+                    <button type="submit" class="btn btn-primary">→</button>
                 </form>
             </div>
         </div>
         <div class="container footer-bottom">
             <p>&copy; 2023 AuraConsult Inc. All rights reserved.</p>
             <div class="legal-links">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
+                <a href="#" class="trigger-modal" data-action="Privacy Policy">Privacy Policy</a>
+                <a href="#" class="trigger-modal" data-action="Terms of Service">Terms of Service</a>
             </div>
         </div>
     </footer>
