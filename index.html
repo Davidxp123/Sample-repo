@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AuraConsult | The Elite Consulting OS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Scroll Progress Bar -->
     <div class="scroll-progress"></div>
+
+    <!-- Particle Background Canvas -->
+    <canvas id="particle-canvas"></canvas>
 
     <!-- Ambient Background Glows -->
     <div class="ambient-bg">
@@ -17,41 +20,82 @@
         <div class="orb orb-2"></div>
         <div class="orb orb-3"></div>
         <div class="orb orb-4"></div>
+        <div class="orb orb-5"></div>
     </div>
 
     <!-- Global Glass Modal (Hidden by default) -->
     <div class="modal-overlay" id="global-modal">
         <div class="glass-panel modal-content">
             <button class="modal-close" id="close-modal">&times;</button>
-            <div class="modal-icon">✨</div>
+            <div class="modal-icon" id="modal-icon">✨</div>
             <h3 id="modal-title">Action Triggered</h3>
             <p id="modal-desc">This is a dynamic interactive element. In a live production environment, this would redirect you or open a specific form.</p>
             <form class="modal-form" id="modal-form">
-                <input type="email" placeholder="Enter your business email" class="glass-input" required>
-                <button type="submit" class="btn btn-primary btn-full">Continue</button>
+                <input type="text" id="modal-name" placeholder="Full Name" class="glass-input" required>
+                <input type="email" id="modal-email" placeholder="Enter your business email" class="glass-input" required>
+                <input type="tel" id="modal-phone" placeholder="Phone Number (optional)" class="glass-input">
+                <textarea id="modal-message" placeholder="Tell us about your needs..." class="glass-input glass-textarea" rows="3"></textarea>
+                <button type="submit" class="btn btn-primary btn-full">
+                    <span class="btn-text">Continue</span>
+                    <span class="btn-loader"></span>
+                </button>
             </form>
+            <div class="modal-success" id="modal-success">
+                <div class="success-icon">✓</div>
+                <h3>Success!</h3>
+                <p>We've received your request and will be in touch shortly.</p>
+            </div>
         </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="toast-notification" id="toast">
+        <div class="toast-icon">🎉</div>
+        <div class="toast-content">
+            <h4 id="toast-title">Notification</h4>
+            <p id="toast-message">Action completed successfully</p>
+        </div>
+        <button class="toast-close" id="toast-close">&times;</button>
     </div>
 
     <!-- Header & Navigation -->
     <header class="glass-header" id="navbar">
         <div class="container nav-container">
             <a href="#home" class="logo">
-                <div class="logo-icon"></div>
+                <div class="logo-icon">
+                    <div class="logo-inner"></div>
+                </div>
                 Aura<span>Consult</span>
             </a>
             
             <!-- Desktop Nav -->
             <nav class="nav-links">
-                <a href="#features">Features</a>
-                <a href="#how-it-works">Workflow</a>
-                <a href="#testimonials">Reviews</a>
-                <a href="#pricing">Pricing</a>
+                <a href="#features" class="nav-link">
+                    <span>Features</span>
+                    <div class="nav-underline"></div>
+                </a>
+                <a href="#how-it-works" class="nav-link">
+                    <span>Workflow</span>
+                    <div class="nav-underline"></div>
+                </a>
+                <a href="#testimonials" class="nav-link">
+                    <span>Reviews</span>
+                    <div class="nav-underline"></div>
+                </a>
+                <a href="#pricing" class="nav-link">
+                    <span>Pricing</span>
+                    <div class="nav-underline"></div>
+                </a>
             </nav>
             
             <div class="nav-actions">
-                <a href="#" class="login-link trigger-modal" data-action="Login">Log In</a>
-                <button class="btn btn-primary trigger-modal" data-action="Start Free Trial">Start Free Trial</button>
+                <a href="#" class="login-link trigger-modal" data-action="Login" data-icon="🔐">
+                    <span>Log In</span>
+                </a>
+                <button class="btn btn-primary trigger-modal" data-action="Start Free Trial" data-icon="🚀">
+                    <span class="btn-shimmer"></span>
+                    <span class="btn-text">Start Free Trial</span>
+                </button>
             </div>
 
             <!-- Mobile Hamburger -->
@@ -64,13 +108,25 @@
 
         <!-- Mobile Nav Menu -->
         <div class="mobile-menu glass-panel" id="mobile-menu">
-            <a href="#features" class="mobile-link">Features</a>
-            <a href="#how-it-works" class="mobile-link">Workflow</a>
-            <a href="#testimonials" class="mobile-link">Reviews</a>
-            <a href="#pricing" class="mobile-link">Pricing</a>
+            <a href="#features" class="mobile-link">
+                <span class="mobile-link-icon">⚡</span>
+                Features
+            </a>
+            <a href="#how-it-works" class="mobile-link">
+                <span class="mobile-link-icon">🔄</span>
+                Workflow
+            </a>
+            <a href="#testimonials" class="mobile-link">
+                <span class="mobile-link-icon">⭐</span>
+                Reviews
+            </a>
+            <a href="#pricing" class="mobile-link">
+                <span class="mobile-link-icon">💎</span>
+                Pricing
+            </a>
             <div class="mobile-actions">
-                <a href="#" class="login-link trigger-modal" data-action="Login">Log In</a>
-                <button class="btn btn-primary trigger-modal" data-action="Start Free Trial">Start Free Trial</button>
+                <a href="#" class="login-link trigger-modal" data-action="Login" data-icon="🔐">Log In</a>
+                <button class="btn btn-primary trigger-modal" data-action="Start Free Trial" data-icon="🚀">Start Free Trial</button>
             </div>
         </div>
     </header>
@@ -81,70 +137,180 @@
             <div class="container hero-container">
                 <div class="hero-content reveal-up">
                     <div class="pill-badge glass-panel">
-                        <span class="pulse-dot"></span> AuraConsult 2.0 is now live
+                        <span class="pulse-dot"></span> 
+                        <span>AuraConsult 2.0 is now live</span>
+                        <span class="pill-badge-shine"></span>
                     </div>
                     <h1 class="hero-title">
-                        Scale your consulting firm with <span class="text-gradient">Intelligent Automation.</span>
+                        Scale your consulting firm with 
+                        <span class="text-gradient typing-effect">Intelligent Automation.</span>
                     </h1>
                     <p class="hero-subtitle">
                         The all-in-one glassmorphic workspace designed for elite consultants. Automate client onboarding, analyze market data with AI, and manage high-ticket retainers flawlessly.
                     </p>
                     <div class="hero-cta">
-                        <button class="btn btn-primary btn-large trigger-modal" data-action="Create Free Account">Get Started for Free</button>
-                        <button class="btn btn-secondary btn-large glass-panel trigger-modal" data-action="Book Demo"><span class="icon">▶</span> Book a Demo</button>
+                        <button class="btn btn-primary btn-large trigger-modal" data-action="Create Free Account" data-icon="🎯">
+                            <span class="btn-shimmer"></span>
+                            <span class="btn-text">Get Started for Free</span>
+                        </button>
+                        <button class="btn btn-secondary btn-large glass-panel trigger-modal" data-action="Book Demo" data-icon="▶">
+                            <span class="icon">▶</span> 
+                            <span>Book a Demo</span>
+                        </button>
                     </div>
-                    <p class="guarantee">No credit card required • 14-day free trial</p>
+                    <p class="guarantee">
+                        <span class="check-icon">✓</span> No credit card required 
+                        <span class="separator">•</span> 
+                        <span class="check-icon">✓</span> 14-day free trial
+                    </p>
+                    
+                    <!-- Trust Badges -->
+                    <div class="trust-badges reveal-up delay-1">
+                        <div class="trust-badge glass-panel">
+                            <div class="badge-icon">🔒</div>
+                            <div class="badge-text">
+                                <strong>256-bit</strong>
+                                <span>Encryption</span>
+                            </div>
+                        </div>
+                        <div class="trust-badge glass-panel">
+                            <div class="badge-icon">✓</div>
+                            <div class="badge-text">
+                                <strong>SOC 2</strong>
+                                <span>Certified</span>
+                            </div>
+                        </div>
+                        <div class="trust-badge glass-panel">
+                            <div class="badge-icon">⚡</div>
+                            <div class="badge-text">
+                                <strong>99.9%</strong>
+                                <span>Uptime</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="hero-visual reveal-up delay-2">
                     <div class="glass-panel dashboard-mockup tilt-card">
                         <div class="mockup-header">
                             <div class="window-controls">
-                                <span></span><span></span><span></span>
+                                <span class="control-red"></span>
+                                <span class="control-yellow"></span>
+                                <span class="control-green"></span>
                             </div>
                             <div class="mockup-title">Aura Workspace</div>
+                            <div class="mockup-actions">
+                                <span class="action-dot"></span>
+                                <span class="action-dot"></span>
+                                <span class="action-dot"></span>
+                            </div>
                         </div>
                         <div class="mockup-body">
-                            <div class="mockup-sidebar"></div>
+                            <div class="mockup-sidebar">
+                                <div class="sidebar-item active"></div>
+                                <div class="sidebar-item"></div>
+                                <div class="sidebar-item"></div>
+                                <div class="sidebar-item"></div>
+                                <div class="sidebar-item"></div>
+                            </div>
                             <div class="mockup-content">
-                                <div class="mockup-chart"></div>
+                                <div class="mockup-chart">
+                                    <div class="chart-bar" style="--height: 60%; --delay: 0s;"></div>
+                                    <div class="chart-bar" style="--height: 80%; --delay: 0.1s;"></div>
+                                    <div class="chart-bar" style="--height: 45%; --delay: 0.2s;"></div>
+                                    <div class="chart-bar" style="--height: 90%; --delay: 0.3s;"></div>
+                                    <div class="chart-bar" style="--height: 70%; --delay: 0.4s;"></div>
+                                    <div class="chart-bar" style="--height: 85%; --delay: 0.5s;"></div>
+                                </div>
                                 <div class="mockup-cards">
-                                    <div class="m-card"></div>
-                                    <div class="m-card"></div>
-                                    <div class="m-card"></div>
+                                    <div class="m-card">
+                                        <div class="m-card-pulse"></div>
+                                    </div>
+                                    <div class="m-card">
+                                        <div class="m-card-pulse"></div>
+                                    </div>
+                                    <div class="m-card">
+                                        <div class="m-card-pulse"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        
+                        <!-- Floating Widgets -->
                         <div class="glass-panel float-widget widget-1 parallax">
-                            <div class="widget-icon success">✓</div>
+                            <div class="widget-icon success">
+                                <span class="icon-inner">✓</span>
+                            </div>
                             <div class="widget-text">
                                 <h4>Invoice Paid</h4>
                                 <p>$12,500.00 from Acme Corp</p>
                             </div>
+                            <div class="widget-sparkle"></div>
                         </div>
+                        
                         <div class="glass-panel float-widget widget-2 parallax-reverse">
                             <div class="avatar-group">
-                                <div class="av"></div><div class="av"></div><div class="av"></div>
+                                <div class="av av-1"></div>
+                                <div class="av av-2"></div>
+                                <div class="av av-3"></div>
                             </div>
                             <div class="widget-text">
                                 <h4>New Client Onboarded</h4>
                                 <p>Strategy sync at 2:00 PM</p>
                             </div>
+                            <div class="widget-pulse"></div>
+                        </div>
+                        
+                        <div class="glass-panel float-widget widget-3 parallax">
+                            <div class="widget-icon warning">
+                                <span class="icon-inner">📊</span>
+                            </div>
+                            <div class="widget-text">
+                                <h4>Analytics Ready</h4>
+                                <p>Q4 Report Generated</p>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            
+            <!-- Scroll Indicator -->
+            <div class="scroll-indicator">
+                <div class="scroll-mouse">
+                    <div class="scroll-wheel"></div>
+                </div>
+                <p>Scroll to explore</p>
             </div>
         </section>
 
         <!-- Social Proof Section -->
         <section class="trusted-by reveal-up">
-            <p>TRUSTED BY INNOVATIVE FIRMS WORLDWIDE</p>
+            <p class="trusted-label">
+                <span class="label-icon">⭐</span>
+                TRUSTED BY INNOVATIVE FIRMS WORLDWIDE
+                <span class="label-icon">⭐</span>
+            </p>
             <div class="logo-cloud container">
-                <div class="company-logo trigger-modal" data-action="AcmeCorp Case Study">AcmeCorp</div>
-                <div class="company-logo trigger-modal" data-action="Globex Case Study">Globex</div>
-                <div class="company-logo trigger-modal" data-action="Soylent Case Study">Soylent</div>
-                <div class="company-logo trigger-modal" data-action="Initech Case Study">Initech</div>
-                <div class="company-logo trigger-modal" data-action="Umbrella Case Study">Umbrella</div>
+                <div class="company-logo trigger-modal" data-action="AcmeCorp Case Study" data-icon="📊">
+                    <span class="company-icon">A</span>
+                    <span class="company-name">AcmeCorp</span>
+                </div>
+                <div class="company-logo trigger-modal" data-action="Globex Case Study" data-icon="🌐">
+                    <span class="company-icon">G</span>
+                    <span class="company-name">Globex</span>
+                </div>
+                <div class="company-logo trigger-modal" data-action="Soylent Case Study" data-icon="🚀">
+                    <span class="company-icon">S</span>
+                    <span class="company-name">Soylent</span>
+                </div>
+                <div class="company-logo trigger-modal" data-action="Initech Case Study" data-icon="💼">
+                    <span class="company-icon">I</span>
+                    <span class="company-name">Initech</span>
+                </div>
+                <div class="company-logo trigger-modal" data-action="Umbrella Case Study" data-icon="☂️">
+                    <span class="company-icon">U</span>
+                    <span class="company-name">Umbrella</span>
+                </div>
             </div>
         </section>
 
@@ -152,40 +318,206 @@
         <section class="features" id="features">
             <div class="container">
                 <div class="section-header reveal-up">
-                    <h2 class="section-title">Everything you need to <span class="text-gradient">dominate</span></h2>
+                    <div class="section-badge glass-panel">
+                        <span class="badge-dot"></span>
+                        FEATURES
+                    </div>
+                    <h2 class="section-title">
+                        Everything you need to 
+                        <span class="text-gradient">dominate</span>
+                    </h2>
                     <p class="section-desc">Replace your fragmented stack of tools with one unified, beautifully designed operating system.</p>
                 </div>
 
                 <div class="grid-3">
-                    <div class="glass-panel feature-card tilt-card reveal-up">
-                        <div class="feature-icon">🧠</div>
+                    <div class="glass-panel feature-card tilt-card reveal-up" data-feature="ai">
+                        <div class="feature-glow"></div>
+                        <div class="feature-icon">
+                            <span class="icon-bg">🧠</span>
+                        </div>
                         <h3>AI Strategy Copilot</h3>
                         <p>Upload client datasets and let our proprietary AI generate comprehensive strategy roadmaps and risk analyses in seconds.</p>
+                        <button class="feature-link trigger-modal" data-action="Learn More: AI Strategy" data-icon="📚">
+                            Learn More
+                            <span class="arrow">→</span>
+                        </button>
+                        <div class="feature-particles">
+                            <span class="particle"></span>
+                            <span class="particle"></span>
+                            <span class="particle"></span>
+                        </div>
                     </div>
-                    <div class="glass-panel feature-card tilt-card reveal-up delay-1">
-                        <div class="feature-icon">⚡</div>
+                    
+                    <div class="glass-panel feature-card tilt-card reveal-up delay-1" data-feature="automation">
+                        <div class="feature-glow"></div>
+                        <div class="feature-icon">
+                            <span class="icon-bg">⚡</span>
+                        </div>
                         <h3>Automated Workflows</h3>
                         <p>Create triggers for client onboarding, contract signing, and automated follow-ups without writing a single line of code.</p>
+                        <button class="feature-link trigger-modal" data-action="Learn More: Automation" data-icon="🔧">
+                            Learn More
+                            <span class="arrow">→</span>
+                        </button>
+                        <div class="feature-particles">
+                            <span class="particle"></span>
+                            <span class="particle"></span>
+                            <span class="particle"></span>
+                        </div>
                     </div>
-                    <div class="glass-panel feature-card tilt-card reveal-up delay-2">
-                        <div class="feature-icon">📈</div>
+                    
+                    <div class="glass-panel feature-card tilt-card reveal-up delay-2" data-feature="analytics">
+                        <div class="feature-glow"></div>
+                        <div class="feature-icon">
+                            <span class="icon-bg">📈</span>
+                        </div>
                         <h3>Real-time Analytics</h3>
                         <p>Track billable hours, project margins, and consultant utilization rates through gorgeous, interactive dashboards.</p>
+                        <button class="feature-link trigger-modal" data-action="Learn More: Analytics" data-icon="📊">
+                            Learn More
+                            <span class="arrow">→</span>
+                        </button>
+                        <div class="feature-particles">
+                            <span class="particle"></span>
+                            <span class="particle"></span>
+                            <span class="particle"></span>
+                        </div>
                     </div>
-                    <div class="glass-panel feature-card tilt-card reveal-up">
-                        <div class="feature-icon">🤝</div>
+                    
+                    <div class="glass-panel feature-card tilt-card reveal-up" data-feature="portal">
+                        <div class="feature-glow"></div>
+                        <div class="feature-icon">
+                            <span class="icon-bg">🤝</span>
+                        </div>
                         <h3>Client Portals</h3>
                         <p>Provide your clients with a white-labeled, secure glassmorphic portal to view deliverables, invoices, and project statuses.</p>
+                        <button class="feature-link trigger-modal" data-action="Learn More: Client Portals" data-icon="🌐">
+                            Learn More
+                            <span class="arrow">→</span>
+                        </button>
+                        <div class="feature-particles">
+                            <span class="particle"></span>
+                            <span class="particle"></span>
+                            <span class="particle"></span>
+                        </div>
                     </div>
-                    <div class="glass-panel feature-card tilt-card reveal-up delay-1">
-                        <div class="feature-icon">💳</div>
+                    
+                    <div class="glass-panel feature-card tilt-card reveal-up delay-1" data-feature="invoicing">
+                        <div class="feature-glow"></div>
+                        <div class="feature-icon">
+                            <span class="icon-bg">💳</span>
+                        </div>
                         <h3>Smart Invoicing</h3>
                         <p>Automate retainer billing, accept global payments in 135+ currencies, and automatically chase late payments.</p>
+                        <button class="feature-link trigger-modal" data-action="Learn More: Invoicing" data-icon="💰">
+                            Learn More
+                            <span class="arrow">→</span>
+                        </button>
+                        <div class="feature-particles">
+                            <span class="particle"></span>
+                            <span class="particle"></span>
+                            <span class="particle"></span>
+                        </div>
                     </div>
-                    <div class="glass-panel feature-card tilt-card reveal-up delay-2">
-                        <div class="feature-icon">🔒</div>
+                    
+                    <div class="glass-panel feature-card tilt-card reveal-up delay-2" data-feature="security">
+                        <div class="feature-glow"></div>
+                        <div class="feature-icon">
+                            <span class="icon-bg">🔒</span>
+                        </div>
                         <h3>Bank-Grade Security</h3>
                         <p>Your firm's data is protected with AES-256 encryption, SOC 2 Type II compliance, and granular role-based access control.</p>
+                        <button class="feature-link trigger-modal" data-action="Learn More: Security" data-icon="🛡️">
+                            Learn More
+                            <span class="arrow">→</span>
+                        </button>
+                        <div class="feature-particles">
+                            <span class="particle"></span>
+                            <span class="particle"></span>
+                            <span class="particle"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Feature Showcase Interactive Demo -->
+                <div class="feature-showcase reveal-up">
+                    <div class="glass-panel showcase-panel">
+                        <div class="showcase-tabs">
+                            <button class="showcase-tab active" data-tab="dashboard">
+                                <span class="tab-icon">📊</span>
+                                Dashboard
+                            </button>
+                            <button class="showcase-tab" data-tab="workflows">
+                                <span class="tab-icon">⚡</span>
+                                Workflows
+                            </button>
+                            <button class="showcase-tab" data-tab="reports">
+                                <span class="tab-icon">📈</span>
+                                Reports
+                            </button>
+                        </div>
+                        <div class="showcase-content">
+                            <div class="showcase-item active" data-content="dashboard">
+                                <div class="showcase-visual">
+                                    <div class="visual-grid">
+                                        <div class="visual-card">
+                                            <div class="card-header">Revenue</div>
+                                            <div class="card-value">$847K</div>
+                                            <div class="card-trend up">+23%</div>
+                                        </div>
+                                        <div class="visual-card">
+                                            <div class="card-header">Active Projects</div>
+                                            <div class="card-value">24</div>
+                                            <div class="card-trend up">+12%</div>
+                                        </div>
+                                        <div class="visual-card">
+                                            <div class="card-header">Client Satisfaction</div>
+                                            <div class="card-value">98%</div>
+                                            <div class="card-trend up">+5%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="showcase-item" data-content="workflows">
+                                <div class="showcase-visual">
+                                    <div class="workflow-visual">
+                                        <div class="workflow-node">
+                                            <span class="node-icon">📧</span>
+                                            <span class="node-label">Email Trigger</span>
+                                        </div>
+                                        <div class="workflow-arrow">→</div>
+                                        <div class="workflow-node">
+                                            <span class="node-icon">🤖</span>
+                                            <span class="node-label">AI Process</span>
+                                        </div>
+                                        <div class="workflow-arrow">→</div>
+                                        <div class="workflow-node">
+                                            <span class="node-icon">✅</span>
+                                            <span class="node-label">Auto-Complete</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="showcase-item" data-content="reports">
+                                <div class="showcase-visual">
+                                    <div class="report-visual">
+                                        <div class="report-chart">
+                                            <div class="chart-line"></div>
+                                        </div>
+                                        <div class="report-stats">
+                                            <div class="stat-item">
+                                                <span class="stat-label">Growth Rate</span>
+                                                <span class="stat-value">+47%</span>
+                                            </div>
+                                            <div class="stat-item">
+                                                <span class="stat-label">Efficiency</span>
+                                                <span class="stat-value">92%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -195,30 +527,117 @@
         <section class="workflow" id="how-it-works">
             <div class="container">
                 <div class="section-header reveal-up">
-                    <h2 class="section-title">A seamless <span class="text-gradient">Workflow</span></h2>
+                    <div class="section-badge glass-panel">
+                        <span class="badge-dot"></span>
+                        WORKFLOW
+                    </div>
+                    <h2 class="section-title">
+                        A seamless 
+                        <span class="text-gradient">Workflow</span>
+                    </h2>
                     <p class="section-desc">From lead generation to retainer renewal, AuraConsult automates the busywork.</p>
                 </div>
                 
                 <div class="workflow-grid">
                     <div class="workflow-step reveal-up">
-                        <div class="step-number glass-panel">1</div>
+                        <div class="step-number glass-panel">
+                            <span class="step-num">1</span>
+                            <div class="step-glow"></div>
+                        </div>
+                        <div class="step-icon">🔗</div>
                         <h3>Connect</h3>
                         <p>Sync your calendar, email, and bank accounts in one click to centralize your consulting business.</p>
+                        <ul class="step-features">
+                            <li><span class="check">✓</span> Google Workspace</li>
+                            <li><span class="check">✓</span> Microsoft 365</li>
+                            <li><span class="check">✓</span> Stripe & PayPal</li>
+                        </ul>
                     </div>
+                    
                     <div class="workflow-step reveal-up delay-1">
-                        <div class="step-number glass-panel">2</div>
+                        <div class="step-number glass-panel">
+                            <span class="step-num">2</span>
+                            <div class="step-glow"></div>
+                        </div>
+                        <div class="step-icon">🧠</div>
                         <h3>Analyze</h3>
                         <p>Our AI processes client data securely, offering predictive insights and strategic recommendations.</p>
+                        <ul class="step-features">
+                            <li><span class="check">✓</span> Market Analysis</li>
+                            <li><span class="check">✓</span> Risk Assessment</li>
+                            <li><span class="check">✓</span> Growth Predictions</li>
+                        </ul>
                     </div>
+                    
                     <div class="workflow-step reveal-up delay-2">
-                        <div class="step-number glass-panel">3</div>
+                        <div class="step-number glass-panel">
+                            <span class="step-num">3</span>
+                            <div class="step-glow"></div>
+                        </div>
+                        <div class="step-icon">⚙️</div>
                         <h3>Automate</h3>
                         <p>Set up smart triggers that send contracts, generate reports, and chase invoices while you sleep.</p>
+                        <ul class="step-features">
+                            <li><span class="check">✓</span> Smart Contracts</li>
+                            <li><span class="check">✓</span> Auto-Invoicing</li>
+                            <li><span class="check">✓</span> Follow-up Emails</li>
+                        </ul>
                     </div>
+                    
                     <div class="workflow-step reveal-up delay-3">
-                        <div class="step-number glass-panel">4</div>
+                        <div class="step-number glass-panel">
+                            <span class="step-num">4</span>
+                            <div class="step-glow"></div>
+                        </div>
+                        <div class="step-icon">🚀</div>
                         <h3>Scale</h3>
                         <p>Leverage rich analytics to optimize your pricing, increase utilization, and grow your agency effortlessly.</p>
+                        <ul class="step-features">
+                            <li><span class="check">✓</span> Revenue Tracking</li>
+                            <li><span class="check">✓</span> Team Analytics</li>
+                            <li><span class="check">✓</span> Client Insights</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Interactive Workflow Demo -->
+                <div class="workflow-demo reveal-up">
+                    <div class="glass-panel demo-container">
+                        <h3>See it in action</h3>
+                        <div class="demo-timeline">
+                            <div class="timeline-item active" data-step="1">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <h4>Day 1: Integration</h4>
+                                    <p>Connect all your tools</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item" data-step="2">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <h4>Week 1: Optimization</h4>
+                                    <p>AI learns your patterns</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item" data-step="3">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <h4>Month 1: Automation</h4>
+                                    <p>Full workflow automation</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item" data-step="4">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <h4>Month 3: Scale</h4>
+                                    <p>2x productivity gains</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary trigger-modal" data-action="Start Your Journey" data-icon="🎯">
+                            <span class="btn-shimmer"></span>
+                            <span class="btn-text">Start Your Journey</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -228,20 +647,36 @@
         <section class="stats-section" id="stats">
             <div class="container glass-panel stats-container reveal-up">
                 <div class="stat-box">
-                    <h2 class="counter" data-target="15000">0</h2><span>+</span>
+                    <div class="stat-icon">🏢</div>
+                    <h2><span class="counter" data-target="15000">0</span><span class="stat-plus">+</span></h2>
                     <p>Consulting Firms</p>
+                    <div class="stat-bar">
+                        <div class="stat-bar-fill" style="--width: 95%;"></div>
+                    </div>
                 </div>
                 <div class="stat-box">
-                    <h2 class="counter" data-target="2.4">0</h2><span>B+</span>
+                    <div class="stat-icon">💰</div>
+                    <h2><span class="counter" data-target="2.4">0</span><span class="stat-plus">B+</span></h2>
                     <p>Invoices Processed</p>
+                    <div class="stat-bar">
+                        <div class="stat-bar-fill" style="--width: 88%;"></div>
+                    </div>
                 </div>
                 <div class="stat-box">
-                    <h2 class="counter" data-target="99.9">0</h2><span>%</span>
+                    <div class="stat-icon">⚡</div>
+                    <h2><span class="counter" data-target="99.9">0</span><span class="stat-plus">%</span></h2>
                     <p>Platform Uptime</p>
+                    <div class="stat-bar">
+                        <div class="stat-bar-fill" style="--width: 99.9%;"></div>
+                    </div>
                 </div>
                 <div class="stat-box">
-                    <h2 class="counter" data-target="35">0</h2><span>hrs</span>
+                    <div class="stat-icon">⏰</div>
+                    <h2><span class="counter" data-target="35">0</span><span class="stat-plus">hrs</span></h2>
                     <p>Saved Weekly/User</p>
+                    <div class="stat-bar">
+                        <div class="stat-bar-fill" style="--width: 92%;"></div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -250,41 +685,225 @@
         <section class="testimonials" id="testimonials">
             <div class="container">
                 <div class="section-header reveal-up">
-                    <h2 class="section-title">Loved by <span class="text-gradient">Industry Leaders</span></h2>
-                    <p class="section-desc">Don't just take our word for it. Here is what top consultants have to say.</p>
+                    <div class="section-badge glass-panel">
+                        <span class="badge-dot"></span>
+                        TESTIMONIALS
+                    </div>
+                    <h2 class="section-title">
+                        Loved by 
+                        <span class="text-gradient">Industry Leaders</span>
+                    </h2>
+                    <p class="section-desc">Don't just take our word for it. Here's what top consultants have to say.</p>
                 </div>
 
                 <div class="grid-3">
                     <div class="glass-panel review-card reveal-up">
-                        <div class="stars">★★★★★</div>
+                        <div class="review-header">
+                            <div class="stars">
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                            </div>
+                            <div class="review-badge">Verified</div>
+                        </div>
                         <p class="review-text">"AuraConsult completely changed how I run my boutique firm. The AI strategy copilot alone saves me about 15 hours a week in research. It feels like magic."</p>
                         <div class="reviewer">
-                            <div class="rev-av" style="background: var(--primary);"></div>
+                            <div class="rev-av" style="background: linear-gradient(135deg, var(--primary), var(--primary-dark));">
+                                <span class="av-letter">S</span>
+                            </div>
                             <div>
                                 <h4>Sarah Jenkins</h4>
                                 <span>Managing Partner, Apex Strat</span>
+                                <div class="reviewer-meta">
+                                    <span class="meta-item">📍 New York</span>
+                                    <span class="meta-item">💼 Strategy</span>
+                                </div>
                             </div>
                         </div>
+                        <div class="review-glow"></div>
                     </div>
+                    
                     <div class="glass-panel review-card reveal-up delay-1">
-                        <div class="stars">★★★★★</div>
+                        <div class="review-header">
+                            <div class="stars">
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                            </div>
+                            <div class="review-badge">Verified</div>
+                        </div>
                         <p class="review-text">"The client portal is breathtaking. My high-ticket clients constantly praise how professional and seamless our onboarding and reporting processes have become."</p>
                         <div class="reviewer">
-                            <div class="rev-av" style="background: var(--secondary);"></div>
+                            <div class="rev-av" style="background: linear-gradient(135deg, var(--secondary), var(--secondary-light));">
+                                <span class="av-letter">D</span>
+                            </div>
                             <div>
                                 <h4>David Chen</h4>
                                 <span>Founder, ScaleOps</span>
+                                <div class="reviewer-meta">
+                                    <span class="meta-item">📍 San Francisco</span>
+                                    <span class="meta-item">💼 Operations</span>
+                                </div>
                             </div>
                         </div>
+                        <div class="review-glow"></div>
                     </div>
+                    
                     <div class="glass-panel review-card reveal-up delay-2">
-                        <div class="stars">★★★★★</div>
+                        <div class="review-header">
+                            <div class="stars">
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                            </div>
+                            <div class="review-badge">Verified</div>
+                        </div>
                         <p class="review-text">"We moved our 20-person agency over to AuraConsult last year. The automated billing and real-time utilization dashboards increased our profit margins by 22%."</p>
                         <div class="reviewer">
-                            <div class="rev-av" style="background: var(--primary-dark);"></div>
+                            <div class="rev-av" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);">
+                                <span class="av-letter">E</span>
+                            </div>
                             <div>
                                 <h4>Elena Rodriguez</h4>
                                 <span>Director, Vanguards</span>
+                                <div class="reviewer-meta">
+                                    <span class="meta-item">📍 London</span>
+                                    <span class="meta-item">💼 Finance</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-glow"></div>
+                    </div>
+                    
+                    <div class="glass-panel review-card reveal-up">
+                        <div class="review-header">
+                            <div class="stars">
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                            </div>
+                            <div class="review-badge">Verified</div>
+                        </div>
+                        <p class="review-text">"The automation workflows are incredibly intuitive. I set up our entire client onboarding process in under 30 minutes without any technical knowledge."</p>
+                        <div class="reviewer">
+                            <div class="rev-av" style="background: linear-gradient(135deg, #10b981, #3b82f6);">
+                                <span class="av-letter">M</span>
+                            </div>
+                            <div>
+                                <h4>Michael Zhang</h4>
+                                <span>CEO, Momentum Labs</span>
+                                <div class="reviewer-meta">
+                                    <span class="meta-item">📍 Singapore</span>
+                                    <span class="meta-item">💼 Tech</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-glow"></div>
+                    </div>
+                    
+                    <div class="glass-panel review-card reveal-up delay-1">
+                        <div class="review-header">
+                            <div class="stars">
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                            </div>
+                            <div class="review-badge">Verified</div>
+                        </div>
+                        <p class="review-text">"Best investment we've made. The ROI tracking alone has helped us identify which client segments are most profitable and adjust our strategy accordingly."</p>
+                        <div class="reviewer">
+                            <div class="rev-av" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">
+                                <span class="av-letter">A</span>
+                            </div>
+                            <div>
+                                <h4>Aisha Patel</h4>
+                                <span>Partner, Summit Advisory</span>
+                                <div class="reviewer-meta">
+                                    <span class="meta-item">📍 Dubai</span>
+                                    <span class="meta-item">💼 Advisory</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-glow"></div>
+                    </div>
+                    
+                    <div class="glass-panel review-card reveal-up delay-2">
+                        <div class="review-header">
+                            <div class="stars">
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                            </div>
+                            <div class="review-badge">Verified</div>
+                        </div>
+                        <p class="review-text">"The security features give our enterprise clients complete peace of mind. SOC 2 compliance was a must-have, and AuraConsult delivered flawlessly."</p>
+                        <div class="reviewer">
+                            <div class="rev-av" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">
+                                <span class="av-letter">J</span>
+                            </div>
+                            <div>
+                                <h4>James O'Connor</h4>
+                                <span>CTO, Vertex Consulting</span>
+                                <div class="reviewer-meta">
+                                    <span class="meta-item">📍 Boston</span>
+                                    <span class="meta-item">💼 Technology</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-glow"></div>
+                    </div>
+                </div>
+                
+                <!-- Video Testimonials -->
+                <div class="video-testimonials reveal-up">
+                    <h3 class="video-title">Watch our clients share their success stories</h3>
+                    <div class="video-grid">
+                        <div class="glass-panel video-card trigger-modal" data-action="Play Video: Sarah's Story" data-icon="▶️">
+                            <div class="video-thumbnail">
+                                <div class="play-button">
+                                    <span class="play-icon">▶</span>
+                                </div>
+                                <div class="video-overlay"></div>
+                            </div>
+                            <div class="video-info">
+                                <h4>Sarah's Story</h4>
+                                <p>How AuraConsult 3x'd her revenue</p>
+                            </div>
+                        </div>
+                        <div class="glass-panel video-card trigger-modal" data-action="Play Video: David's Journey" data-icon="▶️">
+                            <div class="video-thumbnail">
+                                <div class="play-button">
+                                    <span class="play-icon">▶</span>
+                                </div>
+                                <div class="video-overlay"></div>
+                            </div>
+                            <div class="video-info">
+                                <h4>David's Journey</h4>
+                                <p>From solo to 10-person team</p>
+                            </div>
+                        </div>
+                        <div class="glass-panel video-card trigger-modal" data-action="Play Video: Elena's Success" data-icon="▶️">
+                            <div class="video-thumbnail">
+                                <div class="play-button">
+                                    <span class="play-icon">▶</span>
+                                </div>
+                                <div class="video-overlay"></div>
+                            </div>
+                            <div class="video-info">
+                                <h4>Elena's Success</h4>
+                                <p>22% profit margin increase</p>
                             </div>
                         </div>
                     </div>
@@ -296,53 +915,255 @@
         <section class="pricing" id="pricing">
             <div class="container">
                 <div class="section-header reveal-up">
-                    <h2 class="section-title">Transparent, <span class="text-gradient">scalable pricing</span></h2>
+                    <div class="section-badge glass-panel">
+                        <span class="badge-dot"></span>
+                        PRICING
+                    </div>
+                    <h2 class="section-title">
+                        Transparent, 
+                        <span class="text-gradient">scalable pricing</span>
+                    </h2>
                     <p class="section-desc">Start for free, upgrade when you need more power. No hidden fees.</p>
+                </div>
+                
+                <!-- Billing Toggle -->
+                <div class="billing-toggle reveal-up">
+                    <span class="toggle-label">Monthly</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="billing-toggle">
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <span class="toggle-label">
+                        Annual 
+                        <span class="save-badge">Save 20%</span>
+                    </span>
                 </div>
 
                 <div class="pricing-grid">
                     <!-- Starter -->
                     <div class="glass-panel price-card tilt-card reveal-up">
-                        <div class="plan-name">Starter</div>
-                        <div class="plan-price">$49<span>/mo</span></div>
-                        <p class="plan-desc">Perfect for solo consultants and boutique firms.</p>
+                        <div class="plan-header">
+                            <div class="plan-icon">🌱</div>
+                            <div class="plan-name">Starter</div>
+                            <p class="plan-tagline">Perfect for solo consultants</p>
+                        </div>
+                        <div class="plan-price">
+                            <span class="currency">$</span>
+                            <span class="amount monthly-price">49</span>
+                            <span class="amount annual-price" style="display: none;">39</span>
+                            <span class="period">/mo</span>
+                        </div>
+                        <p class="plan-desc">Everything you need to get started</p>
                         <ul class="plan-features">
-                            <li>Up to 3 Team Members</li>
-                            <li>Basic AI Strategy Copilot</li>
-                            <li>Standard Client Portals</li>
-                            <li>Email Support</li>
+                            <li><span class="check-icon">✓</span> Up to 3 Team Members</li>
+                            <li><span class="check-icon">✓</span> Basic AI Strategy Copilot</li>
+                            <li><span class="check-icon">✓</span> Standard Client Portals</li>
+                            <li><span class="check-icon">✓</span> Email Support (24h response)</li>
+                            <li><span class="check-icon">✓</span> 5 GB Storage</li>
+                            <li><span class="check-icon">✓</span> Basic Analytics</li>
                         </ul>
-                        <button class="btn btn-secondary btn-full trigger-modal" data-action="Subscribe Starter">Start 14-Day Trial</button>
+                        <button class="btn btn-secondary btn-full trigger-modal" data-action="Subscribe Starter" data-icon="🚀">
+                            <span class="btn-text">Start 14-Day Trial</span>
+                        </button>
+                        <p class="plan-note">No credit card required</p>
+                        <div class="plan-glow"></div>
                     </div>
 
                     <!-- Pro -->
                     <div class="glass-panel price-card premium tilt-card reveal-up delay-1">
-                        <div class="popular-badge">Most Popular</div>
-                        <div class="plan-name">Professional</div>
-                        <div class="plan-price">$99<span>/mo</span></div>
-                        <p class="plan-desc">For growing agencies needing advanced automation.</p>
+                        <div class="popular-badge">
+                            <span class="badge-icon">⭐</span>
+                            Most Popular
+                        </div>
+                        <div class="plan-header">
+                            <div class="plan-icon">🚀</div>
+                            <div class="plan-name">Professional</div>
+                            <p class="plan-tagline">For growing agencies</p>
+                        </div>
+                        <div class="plan-price">
+                            <span class="currency">$</span>
+                            <span class="amount monthly-price">99</span>
+                            <span class="amount annual-price" style="display: none;">79</span>
+                            <span class="period">/mo</span>
+                        </div>
+                        <p class="plan-desc">Advanced features for scaling firms</p>
                         <ul class="plan-features">
-                            <li>Up to 10 Team Members</li>
-                            <li>Advanced AI Analysis</li>
-                            <li>White-labeled Portals</li>
-                            <li>Custom Workflows</li>
-                            <li>Priority 24/7 Support</li>
+                            <li><span class="check-icon">✓</span> Up to 10 Team Members</li>
+                            <li><span class="check-icon">✓</span> Advanced AI Analysis</li>
+                            <li><span class="check-icon">✓</span> White-labeled Portals</li>
+                            <li><span class="check-icon">✓</span> Custom Workflows</li>
+                            <li><span class="check-icon">✓</span> Priority 24/7 Support</li>
+                            <li><span class="check-icon">✓</span> 50 GB Storage</li>
+                            <li><span class="check-icon">✓</span> Advanced Analytics</li>
+                            <li><span class="check-icon">✓</span> API Access</li>
+                            <li><span class="check-icon">✓</span> Custom Integrations</li>
                         </ul>
-                        <button class="btn btn-primary btn-full trigger-modal" data-action="Subscribe Professional">Start 14-Day Trial</button>
+                        <button class="btn btn-primary btn-full trigger-modal" data-action="Subscribe Professional" data-icon="⚡">
+                            <span class="btn-shimmer"></span>
+                            <span class="btn-text">Start 14-Day Trial</span>
+                        </button>
+                        <p class="plan-note">Most teams save 35+ hours/week</p>
+                        <div class="plan-glow premium-glow"></div>
                     </div>
 
                     <!-- Enterprise -->
                     <div class="glass-panel price-card tilt-card reveal-up delay-2">
-                        <div class="plan-name">Enterprise</div>
-                        <div class="plan-price">Custom</div>
-                        <p class="plan-desc">Dedicated infrastructure for massive scale.</p>
+                        <div class="plan-header">
+                            <div class="plan-icon">👑</div>
+                            <div class="plan-name">Enterprise</div>
+                            <p class="plan-tagline">For large organizations</p>
+                        </div>
+                        <div class="plan-price">
+                            <span class="amount custom">Custom</span>
+                        </div>
+                        <p class="plan-desc">Tailored infrastructure for massive scale</p>
                         <ul class="plan-features">
-                            <li>Unlimited Team Members</li>
-                            <li>Custom AI Model Training</li>
-                            <li>Dedicated Account Manager</li>
-                            <li>On-premise Deployment</li>
+                            <li><span class="check-icon">✓</span> Unlimited Team Members</li>
+                            <li><span class="check-icon">✓</span> Custom AI Model Training</li>
+                            <li><span class="check-icon">✓</span> Dedicated Account Manager</li>
+                            <li><span class="check-icon">✓</span> On-premise Deployment</li>
+                            <li><span class="check-icon">✓</span> 24/7 Phone Support</li>
+                            <li><span class="check-icon">✓</span> Unlimited Storage</li>
+                            <li><span class="check-icon">✓</span> Custom Analytics</li>
+                            <li><span class="check-icon">✓</span> SLA Guarantee</li>
+                            <li><span class="check-icon">✓</span> Training & Onboarding</li>
+                            <li><span class="check-icon">✓</span> Advanced Security</li>
                         </ul>
-                        <button class="btn btn-secondary btn-full trigger-modal" data-action="Contact Sales">Contact Sales</button>
+                        <button class="btn btn-secondary btn-full trigger-modal" data-action="Contact Sales" data-icon="📞">
+                            <span class="btn-text">Contact Sales</span>
+                        </button>
+                        <p class="plan-note">Custom pricing for your needs</p>
+                        <div class="plan-glow"></div>
+                    </div>
+                </div>
+                
+                <!-- Pricing FAQ -->
+                <div class="pricing-faq reveal-up">
+                    <h3 class="faq-title">Frequently Asked Questions</h3>
+                    <div class="faq-grid">
+                        <div class="glass-panel faq-item">
+                            <button class="faq-question">
+                                <span>Can I switch plans anytime?</span>
+                                <span class="faq-icon">+</span>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Absolutely! You can upgrade or downgrade your plan at any time. Changes take effect immediately, and we'll prorate any charges.</p>
+                            </div>
+                        </div>
+                        <div class="glass-panel faq-item">
+                            <button class="faq-question">
+                                <span>What payment methods do you accept?</span>
+                                <span class="faq-icon">+</span>
+                            </button>
+                            <div class="faq-answer">
+                                <p>We accept all major credit cards (Visa, MasterCard, Amex), PayPal, and wire transfers for Enterprise plans. All payments are secure and encrypted.</p>
+                            </div>
+                        </div>
+                        <div class="glass-panel faq-item">
+                            <button class="faq-question">
+                                <span>Is there a setup fee?</span>
+                                <span class="faq-icon">+</span>
+                            </button>
+                            <div class="faq-answer">
+                                <p>No setup fees ever. We believe in transparent pricing. What you see is what you pay, with no hidden costs or surprise charges.</p>
+                            </div>
+                        </div>
+                        <div class="glass-panel faq-item">
+                            <button class="faq-question">
+                                <span>What happens after the trial?</span>
+                                <span class="faq-icon">+</span>
+                            </button>
+                            <div class="faq-answer">
+                                <p>After your 14-day trial, you'll be prompted to choose a plan. If you don't select one, your account will revert to our free tier with limited features. No automatic charges.</p>
+                            </div>
+                        </div>
+                        <div class="glass-panel faq-item">
+                            <button class="faq-question">
+                                <span>Do you offer discounts for nonprofits?</span>
+                                <span class="faq-icon">+</span>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Yes! We offer special pricing for registered nonprofits and educational institutions. Contact our sales team for details.</p>
+                            </div>
+                        </div>
+                        <div class="glass-panel faq-item">
+                            <button class="faq-question">
+                                <span>Can I cancel anytime?</span>
+                                <span class="faq-icon">+</span>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Yes, cancel anytime with just one click. No questions asked, no cancellation fees. Your data remains accessible for 30 days after cancellation.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Money Back Guarantee -->
+                <div class="guarantee-section reveal-up">
+                    <div class="glass-panel guarantee-box">
+                        <div class="guarantee-icon">🛡️</div>
+                        <h3>30-Day Money-Back Guarantee</h3>
+                        <p>Try AuraConsult risk-free. If you're not completely satisfied within the first 30 days, we'll refund your money—no questions asked.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Integration Section -->
+        <section class="integrations reveal-up">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-badge glass-panel">
+                        <span class="badge-dot"></span>
+                        INTEGRATIONS
+                    </div>
+                    <h2 class="section-title">
+                        Connects with your 
+                        <span class="text-gradient">favorite tools</span>
+                    </h2>
+                    <p class="section-desc">Seamlessly integrate with 100+ apps you already use</p>
+                </div>
+                
+                <div class="integration-grid">
+                    <div class="glass-panel integration-card trigger-modal" data-action="Integration: Slack" data-icon="💬">
+                        <div class="int-icon slack">S</div>
+                        <h4>Slack</h4>
+                        <p>Team communication</p>
+                    </div>
+                    <div class="glass-panel integration-card trigger-modal" data-action="Integration: Google Workspace" data-icon="📧">
+                        <div class="int-icon google">G</div>
+                        <h4>Google Workspace</h4>
+                        <p>Email & Calendar</p>
+                    </div>
+                    <div class="glass-panel integration-card trigger-modal" data-action="Integration: Stripe" data-icon="💳">
+                        <div class="int-icon stripe">$</div>
+                        <h4>Stripe</h4>
+                        <p>Payment processing</p>
+                    </div>
+                    <div class="glass-panel integration-card trigger-modal" data-action="Integration: Salesforce" data-icon="☁️">
+                        <div class="int-icon salesforce">SF</div>
+                        <h4>Salesforce</h4>
+                        <p>CRM integration</p>
+                    </div>
+                    <div class="glass-panel integration-card trigger-modal" data-action="Integration: Zoom" data-icon="📹">
+                        <div class="int-icon zoom">Z</div>
+                        <h4>Zoom</h4>
+                        <p>Video meetings</p>
+                    </div>
+                    <div class="glass-panel integration-card trigger-modal" data-action="Integration: QuickBooks" data-icon="📊">
+                        <div class="int-icon quickbooks">QB</div>
+                        <h4>QuickBooks</h4>
+                        <p>Accounting</p>
+                    </div>
+                    <div class="glass-panel integration-card trigger-modal" data-action="Integration: Asana" data-icon="✅">
+                        <div class="int-icon asana">A</div>
+                        <h4>Asana</h4>
+                        <p>Project management</p>
+                    </div>
+                    <div class="glass-panel integration-card trigger-modal" data-action="See All Integrations" data-icon="➕">
+                        <div class="int-icon more">+100</div>
+                        <h4>And More</h4>
+                        <p>View all integrations</p>
                     </div>
                 </div>
             </div>
@@ -352,11 +1173,36 @@
         <section class="cta-section">
             <div class="container">
                 <div class="glass-panel cta-box reveal-up">
+                    <div class="cta-glow"></div>
                     <div class="cta-content">
+                        <div class="cta-badge glass-panel">
+                            <span class="pulse-dot"></span>
+                            Limited Time Offer
+                        </div>
                         <h2>Ready to transform your consulting business?</h2>
-                        <p>Join thousands of top-tier consultants shaping the future of work.</p>
+                        <p>Join thousands of top-tier consultants shaping the future of work. Start your free trial today—no credit card required.</p>
                         <div class="cta-buttons">
-                            <button class="btn btn-primary btn-large trigger-modal" data-action="Final CTA Sign Up">Create Free Account</button>
+                            <button class="btn btn-primary btn-large trigger-modal" data-action="Final CTA Sign Up" data-icon="🎯">
+                                <span class="btn-shimmer"></span>
+                                <span class="btn-text">Create Free Account</span>
+                            </button>
+                            <button class="btn btn-secondary btn-large glass-panel trigger-modal" data-action="Schedule Demo" data-icon="📅">
+                                <span>Schedule a Demo</span>
+                            </button>
+                        </div>
+                        <div class="cta-features">
+                            <div class="cta-feature">
+                                <span class="feature-check">✓</span>
+                                <span>14-day free trial</span>
+                            </div>
+                            <div class="cta-feature">
+                                <span class="feature-check">✓</span>
+                                <span>No credit card required</span>
+                            </div>
+                            <div class="cta-feature">
+                                <span class="feature-check">✓</span>
+                                <span>Cancel anytime</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -369,41 +1215,77 @@
         <div class="container footer-grid">
             <div class="footer-brand">
                 <a href="#home" class="logo">
-                    <div class="logo-icon"></div>
+                    <div class="logo-icon">
+                        <div class="logo-inner"></div>
+                    </div>
                     Aura<span>Consult</span>
                 </a>
                 <p>The operating system for the next generation of consultants. Designed with precision, built for scale.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link trigger-modal" data-action="Follow on Twitter" data-icon="🐦">
+                        <span class="social-icon">𝕏</span>
+                    </a>
+                    <a href="#" class="social-link trigger-modal" data-action="Follow on LinkedIn" data-icon="💼">
+                        <span class="social-icon">in</span>
+                    </a>
+                    <a href="#" class="social-link trigger-modal" data-action="Follow on Facebook" data-icon="📘">
+                        <span class="social-icon">f</span>
+                    </a>
+                    <a href="#" class="social-link trigger-modal" data-action="Follow on Instagram" data-icon="📷">
+                        <span class="social-icon">📷</span>
+                    </a>
+                </div>
             </div>
             <div class="footer-links">
                 <h4>Product</h4>
                 <a href="#features">Features</a>
-                <a href="#" class="trigger-modal" data-action="Integrations Info">Integrations</a>
+                <a href="#" class="trigger-modal" data-action="Integrations Info" data-icon="🔗">Integrations</a>
                 <a href="#pricing">Pricing</a>
-                <a href="#" class="trigger-modal" data-action="Changelog Info">Changelog</a>
+                <a href="#" class="trigger-modal" data-action="Changelog Info" data-icon="📝">Changelog</a>
+                <a href="#" class="trigger-modal" data-action="API Documentation" data-icon="⚙️">API Docs</a>
             </div>
             <div class="footer-links">
                 <h4>Company</h4>
-                <a href="#" class="trigger-modal" data-action="About Us">About Us</a>
-                <a href="#" class="trigger-modal" data-action="Careers">Careers</a>
-                <a href="#" class="trigger-modal" data-action="Blog">Blog</a>
-                <a href="#" class="trigger-modal" data-action="Contact Form">Contact</a>
+                <a href="#" class="trigger-modal" data-action="About Us" data-icon="ℹ️">About Us</a>
+                <a href="#" class="trigger-modal" data-action="Careers" data-icon="💼">Careers</a>
+                <a href="#" class="trigger-modal" data-action="Blog" data-icon="📰">Blog</a>
+                <a href="#" class="trigger-modal" data-action="Contact Form" data-icon="📧">Contact</a>
+                <a href="#" class="trigger-modal" data-action="Press Kit" data-icon="📰">Press Kit</a>
+            </div>
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <a href="#" class="trigger-modal" data-action="Help Center" data-icon="❓">Help Center</a>
+                <a href="#" class="trigger-modal" data-action="Community" data-icon="👥">Community</a>
+                <a href="#" class="trigger-modal" data-action="Webinars" data-icon="🎥">Webinars</a>
+                <a href="#" class="trigger-modal" data-action="Templates" data-icon="📋">Templates</a>
+                <a href="#" class="trigger-modal" data-action="Case Studies" data-icon="📊">Case Studies</a>
             </div>
             <div class="footer-newsletter">
-                <h4>Subscribe</h4>
-                <p>Get the latest updates and consulting tips.</p>
+                <h4>Stay Updated</h4>
+                <p>Get the latest updates, consulting tips, and exclusive offers.</p>
                 <form class="newsletter-form" id="newsletter-form">
                     <input type="email" placeholder="Enter your email" class="glass-input" required>
-                    <button type="submit" class="btn btn-primary">→</button>
+                    <button type="submit" class="btn btn-primary">
+                        <span>→</span>
+                    </button>
                 </form>
+                <p class="newsletter-note">We respect your privacy. Unsubscribe anytime.</p>
             </div>
         </div>
         <div class="container footer-bottom">
-            <p>&copy; 2023 AuraConsult Inc. All rights reserved.</p>
+            <p>&copy; 2024 AuraConsult Inc. All rights reserved.</p>
             <div class="legal-links">
-                <a href="#" class="trigger-modal" data-action="Privacy Policy">Privacy Policy</a>
-                <a href="#" class="trigger-modal" data-action="Terms of Service">Terms of Service</a>
+                <a href="#" class="trigger-modal" data-action="Privacy Policy" data-icon="🔒">Privacy Policy</a>
+                <a href="#" class="trigger-modal" data-action="Terms of Service" data-icon="📜">Terms of Service</a>
+                <a href="#" class="trigger-modal" data-action="Cookie Policy" data-icon="🍪">Cookie Policy</a>
+                <a href="#" class="trigger-modal" data-action="GDPR" data-icon="🇪🇺">GDPR</a>
             </div>
         </div>
+        
+        <!-- Back to Top Button -->
+        <button class="back-to-top glass-panel" id="back-to-top">
+            <span class="arrow-up">↑</span>
+        </button>
     </footer>
 
     <script src="mycustom.js"></script>
